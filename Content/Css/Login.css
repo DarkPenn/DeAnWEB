@@ -1,0 +1,206 @@
+﻿.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 70vh;
+    padding-top: 30px
+}
+
+.login-box {
+    width: 600px;
+    text-align: left;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+    .login-box h2 {
+        text-align: left;
+        font-size: 28px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 25px;
+    }
+
+    .login-box label {
+        font-weight: 600;
+        color: #111;
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+
+    .login-box input[type="text"],
+    .login-box input[type="password"] {
+        width: 100%;
+        max-width: 600px;
+        padding: 10px 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+
+    .login-box a {
+        color: #111;
+        font-size: 14px;
+        text-decoration: none;
+        font-weight: 600;
+        text-decoration: underline;
+    }
+
+        .login-box a:hover {
+            text-decoration: underline;
+        }
+
+    .login-box button {
+        width: 120px;
+        height: 40px;
+        border: none;
+        background-color: #111;
+        color: white;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+        .login-box button:hover {
+            background-color: #3a3a3a;
+        }
+
+    .login-box .register-link {
+        margin-top: 15px;
+        font-size: 18px;
+        text-align: left;
+        font-weight: 600; /* cho chữ đậm hơn */
+    }
+    /* Căn chỉnh riêng cho phần "Quên mật khẩu" */
+    .login-box .forgot-password {
+        display: block; /* cho xuống hàng riêng */
+        text-align: left;
+        margin-top: -10px;
+        margin-bottom: 20px;
+        font-size: 14px;
+        color: #111;
+        text-decoration: none;
+        font-weight: 600;
+        text-decoration: underline;
+    }
+
+        .login-box .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+#loginForm, #registerForm {
+    transition: opacity 0.3s ease;
+}
+
+    #loginForm[style*="display: none"],
+    #registerForm[style*="display: none"] {
+        opacity: 0;
+    }
+
+.underline-link {
+    text-decoration: underline;
+}
+/* === KHUNG THÔNG BÁO LỖI === */
+#errorMessage {
+    background-color: #ebebeb; /* nền xám nhạt */
+    color: #111;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 30px 35px;
+    margin-bottom: 25px;
+    border: none;
+    border-radius: 0;
+    width: 100%;
+    max-width: 500px; /* bằng với input */
+    display: none;
+}
+
+    #errorMessage ul {
+        margin: 0;
+        padding-left: 20px;
+        list-style-type: disc;
+    }
+
+    #errorMessage li {
+        line-height: 1.6;
+    }
+
+.success-message {
+    background-color: #e6f4ea;
+    color: #1a7f37;
+    border-left: 4px solid #1a7f37;
+    padding: 15px;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.login-box {
+    width: 600px;
+    margin: 0 auto;
+    text-align: left;
+    font-family: Arial, sans-serif;
+}
+
+    .login-box input[type="text"],
+    .login-box input[type="password"] {
+        width: 100%;
+        max-width: 500px;
+        padding: 14px 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+    }
+
+button {
+    width: 120px;
+    height: 40px;
+    border: none;
+    background-color: #111;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    button:hover {
+        background-color: #333;
+    }
+
+.error-message {
+    background: #fce4e4;
+    color: #b71c1c;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.success-message {
+    background: #e6f4ea;
+    color: #1a7f37;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.forgot-password,
+.register-link a {
+    text-decoration: underline;
+    color: #111;
+    font-weight: 600;
+}
+
+    .forgot-password:hover,
+    .register-link a:hover {
+        text-decoration: underline;
+        color: #000;
+    }
+
+@media (max-width:1024px) {
+    .login-box {
+        width: 300px;
+    }
+}

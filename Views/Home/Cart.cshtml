@@ -1,0 +1,203 @@
+﻿﻿@section styles {
+    <link rel="stylesheet" href="~/Content/Css/Cart.css" />
+}
+
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng - SuperSports</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+</head>
+<body>
+
+
+    <main class="container" id="cartMainContent">
+        <!-- Nội dung sẽ được render động dựa vào trạng thái giỏ hàng -->
+    </main>
+
+    <script>
+        // Initialize cart
+        document.addEventListener("DOMContentLoaded", function () {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            renderCart();
+        });
+
+        function renderCart() {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const container = document.getElementById("cartMainContent");
+
+            if (cart.length === 0) {
+
+                container.innerHTML = `
+                            <div class="empty-cart">
+                                <h2 class="empty-cart-title">Giỏ hàng trống!</h2>
+                                <button class="continue-shopping-btn" onclick="continueShopping()">
+                                    Tiếp tục mua sắm
+                                </button>
+                            </div>
+                        `;
+                return;
+            }
+
+
+            container.innerHTML = `
+                        <div class="cart-layout">
+                            <!-- Cart Items Section -->
+                            <div class="cart-items">
+                                <h2 class="cart-title">Giỏ hàng</h2>
+                                <div id="cartItems">
+                                    ${renderCartItems(cart)}
+                                </div>
+                                <div style="text-align: center; margin-top: 30px;">
+                                    <button class="continue-shopping-btn" onclick="continueShopping()">
+                                        Tiếp tục mua sắm
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Cart Summary Section -->
+                            <div class="cart-summary">
+                                <div class="voucher-banner">
+                                    <a href="#">
+                                       <a href="@Url.Action("Register_Login","Home")"><h3>ĐĂNG KÝ NGAY | NHẬN NGAY</h3>
+                                        <p>VOUCHER 150.000 VND CHO ĐƠN HÀNG ĐẦU TIÊN</p>
+                                    </a>
+                                </div>
+
+                                <div class="summary-row">
+                                    <span id="itemCount">(${getTotalItems(cart)}) sản phẩm</span>
+                                    <span id="subtotal">${formatCurrency(getSubtotal(cart))}</span>
+                                </div>
+
+                                <div class="summary-row">
+                                    <span>Giảm giá</span>
+                                    <span>Áp dụng tại trang thanh toán</span>
+                                </div>
+
+                                <div class="summary-row">
+                                    <span>Phí vận chuyển</span>
+                                    <span>Phí ship sẽ được tính tại trang thanh toán</span>
+                                </div>
+
+                                <div class="summary-row total">
+                                    <span>Thành tiền:</span>
+                                    <span id="totalAmount">${formatCurrency(getSubtotal(cart))}</span>
+                                </div>
+
+                                <p class="note">*Phí ship và coupon áp dụng tại trang thanh toán</p>
+
+                                <button class="checkout-btn" onclick="checkout()">
+                                    THANH TOÁN
+                                </button>
+
+                                <div class="payment-methods">
+                                    <p>Thanh toán nhanh chóng với:</p>
+                                    <div class="payment-icons">
+                                        <div class="payment-icon">VNPay</div>
+                                        <div class="payment-icon">Momo</div>
+                                        <div class="payment-icon">ZaloPay</div>
+                                        <div class="payment-icon">Credit</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+        }
+
+        function renderCartItems(cart) {
+            return cart.map((item, index) => {
+                const itemTotal = item.qty * item.price;
+                return `
+                            <div class="cart-item">
+                                <img src="${item.image}" alt="${item.name}" class="item-image">
+                                <div class="item-details">
+                                    <div class="brand">${item.brand}</div>
+                                    <div class="item-name">${item.name}</div>
+                                    <div class="item-variant">${item.variant}</div>
+                                    <div class="item-price">${formatCurrency(item.price)}</div>
+
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                                        <div class="quantity-controls">
+                                            <button class="qty-btn" onclick="changeQuantity(${index}, -1)">-</button>
+                                            <span class="qty-display">${item.qty}</span>
+                                            <button class="qty-btn" onclick="changeQuantity(${index}, 1)">+</button>
+                                        </div>
+                                        <div class="item-total">${formatCurrency(itemTotal)}</div>
+                                    </div>
+
+                                    <button class="remove-btn" onclick="removeItem(${index})">
+                                        <i class="fas fa-trash"></i> Xóa
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+            }).join('');
+        }
+
+        function getTotalItems(cart) {
+            return cart.reduce((total, item) => total + item.qty, 0);
+        }
+
+        function getSubtotal(cart) {
+            return cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+        }
+
+        function formatCurrency(amount) {
+            return amount.toLocaleString('vi-VN') + '₫';
+        }
+
+        function changeQuantity(index, change) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            if (cart[index]) {
+                cart[index].qty += change;
+
+                if (cart[index].qty < 1) {
+                    if (confirm("Bạn có muốn xóa sản phẩm này khỏi giỏ hàng?")) {
+                        cart.splice(index, 1);
+                    } else {
+                        cart[index].qty = 1;
+                    }
+                }
+
+                localStorage.setItem("cart", JSON.stringify(cart));
+                renderCart();
+            }
+        }
+
+        function removeItem(index) {
+            if (confirm("Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?")) {
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+                cart.splice(index, 1);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                renderCart();
+            }
+        }
+
+        function continueShopping() {
+            // Điều hướng về trang chủ hoặc trang sản phẩm
+            window.location.href = '@Url.Action( "Home")';; // Thay đổi URL theo nhu cầu
+        }
+
+        function checkout() {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            if (cart.length === 0) {
+                alert("Giỏ hàng của bạn đang trống!");
+                return;
+            }
+
+            // Điều hướng đến trang thanh toán
+            window.location.href = '@Url.Action("DeliverLocate", "Home")';;
+        }
+
+    </script>
+
+
+</body>
+</html>

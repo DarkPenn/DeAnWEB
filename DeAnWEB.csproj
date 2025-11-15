@@ -154,11 +154,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MyStoreModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MyStoreModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MyStoreModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\MyStoreModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -207,6 +202,16 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Css\Cart.css" />
+    <Content Include="Content\Css\Category.css" />
+    <Content Include="Content\Css\DeliverLocate.css" />
+    <Content Include="Content\Css\DetailProduct.css" />
+    <Content Include="Content\Css\Home.css" />
+    <Content Include="Content\Css\Login.css" />
+    <Content Include="Content\Css\MasterLayout.css" />
+    <Content Include="Content\Css\OrderDetail.css" />
+    <Content Include="Content\Css\OrderHistory.css" />
+    <Content Include="Content\Css\Payment_List.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -252,6 +257,8 @@
     <Content Include="Areas\Admin\Views\Products\PartiavlView_CreateEditProducts.cshtml" />
     <Content Include="Areas\Admin\Views\Products\PVListProduct.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
+    <Content Include="Scripts\DetaiProduct.js" />
+    <Content Include="Scripts\Home.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
     <Content Include="Scripts\jquery-3.7.0.slim.js" />
@@ -261,6 +268,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Login.js" />
+    <Content Include="Scripts\MasterLayout.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -272,10 +281,22 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_MasterLayout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Cart.cshtml" />
+    <Content Include="Views\Home\Category.cshtml" />
+    <Content Include="Views\Home\DeliverLocate.cshtml" />
+    <Content Include="Views\Home\DetailProduct_Black.cshtml" />
+    <Content Include="Views\Home\DetailProduct_Orange.cshtml" />
+    <Content Include="Views\Home\DetailProduct_Purple.cshtml" />
+    <Content Include="Views\Home\DetailProduct_White.cshtml" />
+    <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\Home\OrderDetail.cshtml" />
+    <Content Include="Views\Home\OrderHistory.cshtml" />
+    <Content Include="Views\Home\Payment_List.cshtml" />
+    <Content Include="Views\Home\Register_Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

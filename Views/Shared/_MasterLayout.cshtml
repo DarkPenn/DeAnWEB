@@ -1,0 +1,173 @@
+﻿﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - Adidas Store</title>
+    <link rel="stylesheet" href="~/Content/Css/MasterLayout.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <script src="/Scripts/MasterLayout.js" defer></script>
+    @RenderSection("styles", required: false)   <!-- Cho phép trang con thêm CSS -->
+    @RenderSection("Scripts", required: false)
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <!-- Top green bar -->
+        <div class="top-bar">
+            <button class="topbar-btn prev">&#10094;</button>
+            <div class="topbar-content">
+                <div class="topbar-item active">
+                    10.10 - GIẢM ĐẾN 50% + VOUCHER ĐẾN 500K
+                    <a href="@Url.Action("Category","Home")" class="topbar-link">Xem ngay</a>
+                </div>
+                <div class="topbar-item">
+                    10.10 - MUA 2 GIẢM 30%
+                    <a href="@Url.Action("Category","Home")" class="topbar-link">Xem ngay</a>
+                </div>
+                <div class="topbar-item">
+                    10.10 - GIÁ ĐẶC BIỆT
+                    <a href="@Url.Action("Category","Home")" class="topbar-link">Xem ngay</a>
+                </div>
+                <div class="topbar-item">
+                    SPEEDO - GIÁ ĐẶC BIỆT
+                    <a href="@Url.Action("Category","Home")" class="topbar-link">Xem ngay</a>
+                </div>
+            </div>
+            <button class="topbar-btn next">&#10095;</button>
+        </div> <!-- Main navigation -->
+        <div class="main-header">
+            <div class="logo">
+                <a href="@Url.Action("Home","Home")"><img src="~/Content/Images/logo-color.png" alt="Supersports Logo"></a>
+            </div>
+            <div class="search-box">
+                <input style="width:100%; height:auto;" type="text" placeholder="Bạn đang tìm gì">
+                <button style="width:10%;"> <span class="material-symbols-outlined">search</span> </button>
+            </div>
+
+            <div class="icons">
+                <a href="@Url.Action("Register_Login","Home")" style="color:white;"><span class="material-symbols-outlined">person</span> </a>
+                <a href="@Url.Action("Cart","Home")" style="color:white;"><span class="material-symbols-outlined"> shopping_bag</span> </a>
+                <a href="@Url.Action("OrderHistory","Home")" style="color:white;"><span class="material-symbols-outlined base">inventory_2</span></a>
+                <img class="flag" src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag">
+                <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
+                <br />
+            </div>
+            @*<nav class="nav-menu">
+                    <ul>
+                        <li>
+                            <a href="@Url.Action("Category","Home")">Hàng Mới</a>
+                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Category","Home")">Nam</a>
+                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Category","Home")">Nữ</a>
+                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Category","Home")">Trẻ Em</a>
+                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Category","Home")">Phụ Kiện</a>
+                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Category","Home")">Thương Hiệu</a>
+                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Category","Home")">Thể Thao</a>
+                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Category","Home")" class="highlight">Ưu Đãi</a>
+                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
+                        </li>
+                    </ul>
+                </nav>*@
+
+        </div>
+        <!-- Bottom info bar -->
+        <div class="info-bar">
+            <span>🚚 Miễn phí giao hàng đơn từ 699k</span>
+            <span>📦 Miễn phí đổi trả đến 30 ngày</span>
+            <span>✅ Cam kết 100% chính hãng</span>
+            <a href="@Url.Action("Register_Login","Home")" class="highlight"><span>🏷️ Đăng ký nhận ngay 150k</span></a>
+        </div>
+    </header>
+    <!-- MAIN CONTENT -->
+    <main> @RenderBody() </main>
+    <!-- FOOTER -->
+    <footer class="supersports-footer">
+        <div class="footer-container">
+            <!-- CỘT 1 -->
+            <div class="footer-column">
+                <h4>CÔNG TY TNHH MTV THƯƠNG MẠI THỜI TRANG TỔNG HỢP (GTF)</h4>
+                <p><strong>Văn phòng:</strong> Số 163, Phan Đăng Lưu, Phường Cầu Kiệu, Thành phố Hồ Chí Minh, Việt Nam</p>
+                <p><strong>Địa chỉ kho:</strong> 14 Đường Phan Đăng Lưu, Khu phố 7, Phường Long Bình, TP. Biên Hòa, Tỉnh Đồng Nai</p>
+                <p><strong>Tổng đài:</strong> 1900 63 64 01</p>
+                <p><strong>Mã số Doanh Nghiệp:</strong> 0314635071, đăng ký thay đổi ngày 20 tháng 04 năm 2020</p>
+            </div>
+            <!-- CỘT 2 -->
+            <div class="footer-column">
+                <h4>VỀ SUPERSORTS</h4>
+                <ul>
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Hệ thống cửa hàng</a></li>
+                    <li><a href="#">Thông tin liên hệ</a></li>
+                    <li><a href="#">Các điều khoản và điều kiện</a></li>
+                    <li><a href="#">Hợp tác cùng chúng tôi</a></li>
+                </ul>
+            </div>
+            <!-- CỘT 3 -->
+            <div class="footer-column">
+                <h4>HỖ TRỢ KHÁCH HÀNG</h4>
+                <ul>
+                    <li><a href="#">Chính sách giao hàng</a></li>
+                    <li><a href="#">Chính sách đổi trả hàng - Bảo hành</a></li>
+                    <li><a href="#">Chính sách trả góp</a></li>
+                    <li><a href="#">Chính sách bảo mật</a></li>
+                    <li><a href="#">Hỗ trợ & giải đáp thắc mắc</a></li>
+                    <li><a href="#">Hướng dẫn mua hàng</a></li>
+                    <li><a href="#">Hướng dẫn chọn size</a></li>
+                    <li><a href="#">Tra cứu đơn hàng</a></li>
+                </ul>
+            </div>
+            <!-- CỘT 4 -->
+            <div class="footer-column">
+                <h4>GROUP BUSINESS</h4>
+                <ul>
+                    <li><a href="#">Nguyễn Kim</a></li>
+                    <li><a href="#">Big C</a></li>
+                </ul>
+            </div>
+            <!-- CỘT 5 -->
+            <div class="footer-column payment">
+                <h4>PHƯƠNG THỨC THANH TOÁN</h4>
+                <div class="payment-icons">
+                    <img src="https://cdn.shopify.com/s/files/1/0456/5070/6581/files/ICON_PAYMENT_VN.png?v=1713840527" alt="Payment-logo">
+                    @*<img src="https://upload.wikimedia.org/wikipedia/commons/9/99/ZaloPay_Logo.png" alt="ZaloPay">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1041/1041883.png" alt="COD">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Mastercard-logo.png" alt="Mastercard">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/ATM_icon.png" alt="ATM">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Installment_icon.png" alt="Trả góp">*@
+                </div>
+                <div class="certifications">
+                    <a href="http://online.gov.vn/Home/WebDetails/72039"><img src="https://cdn.shopify.com/s/files/1/0670/3484/1376/files/image_41_487e5803-f4d0-489f-ac14-7b301b6cbb92.png?v=1683197427" alt="Bộ Công Thương"> </a>
+                    <a href="https://www.dmca.com/Protection/Status.aspx?ID=82a9b6db-8bb5-4f59-b809-e909e4e33dda&refurl=https://supersports.com.vn/"><img src="https://images.dmca.com/Badges/DMCA_logo-grn-btn100w.png?ID=82a9b6db-8bb5-4f59-b809-e909e4e33dda" alt="DMCA Protected"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
