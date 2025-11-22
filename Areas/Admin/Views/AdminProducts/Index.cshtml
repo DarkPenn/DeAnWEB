@@ -1,0 +1,61 @@
+﻿@model DeAnWEB.Models.ViewModel.ProductSearchVM
+
+@{
+    ViewBag.Title = "IndexProducts";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Search</title>
+    <style>
+        .search-container, .order-container {
+            padding-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <!--Form Tìm Kiếm-->
+    @using (Html.BeginForm("Index", "Products", FormMethod.Get))
+    {
+        <div class="mb-3 search-container">
+            <!-- Text Box tìm theo tên, loại-->
+            @Html.TextBoxFor(m => m.SearchTerm, new
+            {
+                @class = "form-control",
+                placeholder = "Nhập tên,mô tả,chủng loại sản phẩm"
+            })
+            <!-- Text Box tìm theo giá-->
+            @Html.TextBoxFor(m => m.MinPrice, new
+            {
+                @class = "form-control",
+                placeholder = "Nhập giá tối thiểu",
+                type = "number"
+            })
+            @Html.TextBoxFor(m => m.MaxPrice, new
+            {
+                @class = "form-control",
+                placeholder = "Nhập giá tối đa",
+                type = "number"
+            })
+            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+        </div>
+        //Tùy chọn sắp xếp
+        <div class="mb-3 order-container">
+            Sắp xếp theo:
+            @Html.ActionLink("Tên tăng dần", "Index", new { SortOrder = "name_asc", SearchTerm = Model.SearchTerm })
+            |
+            @Html.ActionLink("Tên giảm dần", "Index", new { SortOrder = "name_desc", SearchTerm = Model.SearchTerm })
+            |
+            @Html.ActionLink("Giá tăng dần", "Index", new { SortOrder = "price_asc", SearchTerm = Model.SearchTerm })
+            |
+            @Html.ActionLink("Giá giảm dần", "Index", new { SortOrder = "price_desc", SearchTerm = Model.SearchTerm })
+        </div>
+    }
+    @* Form hiển thị kết quả tìm kiếm *@
+    @Html.Partial("PVListProduct", Model)
+</body>
+</html>

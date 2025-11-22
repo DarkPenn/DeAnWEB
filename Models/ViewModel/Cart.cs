@@ -16,7 +16,7 @@ namespace DeAnWEB.Models.ViewModel
 
         //Thuộc tính hỗ trợ phân trang
         public int PageNumber { get; set; } //Trang hiện tại
-        public int PageSize { get; set; } = 6; //Số sản phẩm mỗi trang
+        public int PageSize { get; set; } = 5; //Số sản phẩm mỗi trang
 
         //Danh sách các sản phẩm cùng danh mục với các sản phẩm trong giỏ hàng
         public PagedList.IPagedList<Product> SimilarProducts { get; set; }

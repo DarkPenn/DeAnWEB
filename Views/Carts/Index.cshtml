@@ -1,0 +1,151 @@
+﻿﻿@model DeAnWEB.Models.ViewModel.Cart
+﻿@section styles {
+    <link rel="stylesheet" href="~/Content/Css/Cart.css" />
+}
+
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng - SuperSports</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script language="JavaScript">
+    function cartUpdateQuantity(id, newQuantity) {
+        if (newQuantity < 1) return;
+        const form = document.createElement('form');
+        form.method = 'post';
+        form.action = '@Url.Action("UpdateQuantity","Carts")';
+
+        const idInput = document.createElement('input');
+        idInput.type = 'hidden';
+        idInput.name = 'id';
+        idInput.value = id;
+        form.appendChild(idInput);
+
+        const quantityInput = document.createElement('input');
+        quantityInput.type = 'hidden';
+        quantityInput.name = 'quantity';
+        quantityInput.value = newQuantity;
+        form.appendChild(quantityInput);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+    </script>
+
+</head>
+<body>
+
+
+    <main class="container" id="cartMainContent">
+        <div class="empty-cart">
+            @if (!Model.Items.Any())
+            {<h2 class="empty-cart-title" style="background-color:white;">Bạn chưa có sản phẩm nào trong giỏ 🛒</h2> }
+            else
+            {
+                <div class="cart-layout">
+                    <div class="left-section" style="background-color:white; border-radius:8px;">
+                        <div class="cart-item">
+                            <table class="table" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Sản Phẩm</th>
+                                        <th>Số Lượng</th>
+                                        <th>Đơn Giá</th>
+                                        <th>Thành Tiền</th>
+                                        <th title="Xóa tất cả mặt hàng trong giỏ">
+                                            <a href="@Url.Action("ClearCart","Carts",null)">
+                                                X
+                                            </a>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Items)
+                                    {
+                                        <tr>
+                                            <td><img src="@item.ProductImage" alt="@item.ProductName" style="max-height:80px;" /></td>
+                                            <td class="col-md-3">@item.ProductName</td>
+                                            <td>
+                                                @using (Html.BeginForm("UpdateQuantity", "Carts", FormMethod.Post))
+                                                {
+                                                    <input type="hidden" name="id" value="@item.ProductID" />
+                                                    <button type="button" style="width:20px;" onclick="cartUpdateQuantity(@item.ProductID,@item.Quantity -1)">-</button>
+                                                    <input type="number" name="quantity" value="@item.Quantity" min="1" max="100" style="width:40px; text-align:right;" readonly />
+                                                    <button type="button" style="width:20px;" onclick="cartUpdateQuantity(@item.ProductID,@item.Quantity +1)">+</button>
+                                                }
+                                            </td>
+
+                                            <td>@item.UnitPrice.ToString("N0")</td>
+                                            <td>@item.TotalPrice.ToString("N0")</td>
+                                            <td>
+                                                <a href="@Url.Action("RemoveFromCart","Carts", new { id = item.ProductID })">
+                                                    X
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="right-section">
+                        <!-- Cart Summary Section -->
+                        <div class="cart-summary">
+                            <div class="voucher-banner">
+                                <a href="@Url.Action("Register_Login","Home")">
+                                    <h3>ĐĂNG KÝ NGAY | NHẬN NGAY</h3>
+                                    <p>VOUCHER 150.000 VND CHO ĐƠN HÀNG ĐẦU TIÊN</p>
+                                </a>
+                            </div>
+
+
+
+                            <div class="summary-row">
+                                <span>Giảm giá</span>
+                                <span>Áp dụng tại trang thanh toán</span>
+                            </div>
+
+                            <div class="summary-row">
+                                <span style="text-align:left;">Phí vận chuyển</span>
+                                <span style="text-align:right;">Phí ship sẽ được tính tại trang thanh toán</span>
+                            </div>
+
+                            <div class="summary-row total">
+                                <span>Tổng giá trị: &nbsp; </span>
+                                <span style="color:red; text-align:right;">@Model.TotalValue().ToString("N0")</span>
+                            </div>
+
+                            <p class="note">*Phí ship và coupon áp dụng tại trang thanh toán</p>
+
+                            <button class="checkout-btn">
+                                <div>@Html.ActionLink("Thanh Toán", "Checkout", "Orders", null, new { @class = "btn btn-danger cart-button" }) </div>
+                            </button>
+
+                            <div class="payment-methods">
+                                <p>Thanh toán nhanh chóng với:</p>
+                                <div class="payment-icons">
+                                    <div class="payment-icon">VNPay</div>
+                                    <div class="payment-icon">Momo</div>
+                                    <div class="payment-icon">ZaloPay</div>
+                                    <div class="payment-icon">Credit</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="continue-shopping-btn">
+                <div class="col-md-12">@Html.ActionLink("Tiếp Tục Mua Hàng", "Index", "Homes", null, new { @class = "btn btn-warning cart-button" }) </div>
+            </button>
+        </div>
+    </main>
+
+
+
+</body>
+</html>

@@ -43,7 +43,7 @@
         </div> <!-- Main navigation -->
         <div class="main-header">
             <div class="logo">
-                <a href="@Url.Action("Home","Home")"><img src="~/Content/Images/logo-color.png" alt="Supersports Logo"></a>
+                <a href="@Url.Action("Index","Homes")"><img src="~/Content/Images/logo-color.png" alt="Supersports Logo"></a>
             </div>
             <div class="search-box">
                 <input style="width:100%; height:auto;" type="text" placeholder="Bạn đang tìm gì">
@@ -52,48 +52,12 @@
 
             <div class="icons">
                 <a href="@Url.Action("Register_Login","Home")" style="color:white;"><span class="material-symbols-outlined">person</span> </a>
-                <a href="@Url.Action("Cart","Home")" style="color:white;"><span class="material-symbols-outlined"> shopping_bag</span> </a>
+                <a href="@Url.Action("Index","Carts")" style="color:white;"><span class="material-symbols-outlined"> shopping_bag</span> </a>
                 <a href="@Url.Action("OrderHistory","Home")" style="color:white;"><span class="material-symbols-outlined base">inventory_2</span></a>
                 <img class="flag" src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag">
                 <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
                 <br />
             </div>
-            @*<nav class="nav-menu">
-                    <ul>
-                        <li>
-                            <a href="@Url.Action("Category","Home")">Hàng Mới</a>
-                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Category","Home")">Nam</a>
-                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Category","Home")">Nữ</a>
-                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Category","Home")">Trẻ Em</a>
-                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Category","Home")">Phụ Kiện</a>
-                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Category","Home")">Thương Hiệu</a>
-                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Category","Home")">Thể Thao</a>
-                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Category","Home")" class="highlight">Ưu Đãi</a>
-                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
-                        </li>
-                    </ul>
-                </nav>*@
 
         </div>
         <!-- Bottom info bar -->
@@ -153,15 +117,6 @@
             <!-- CỘT 5 -->
             <div class="footer-column payment">
                 <h4>PHƯƠNG THỨC THANH TOÁN</h4>
-                <div class="payment-icons">
-                    <img src="https://cdn.shopify.com/s/files/1/0456/5070/6581/files/ICON_PAYMENT_VN.png?v=1713840527" alt="Payment-logo">
-                    @*<img src="https://upload.wikimedia.org/wikipedia/commons/9/99/ZaloPay_Logo.png" alt="ZaloPay">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1041/1041883.png" alt="COD">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Mastercard-logo.png" alt="Mastercard">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/ATM_icon.png" alt="ATM">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Installment_icon.png" alt="Trả góp">*@
-                </div>
                 <div class="certifications">
                     <a href="http://online.gov.vn/Home/WebDetails/72039"><img src="https://cdn.shopify.com/s/files/1/0670/3484/1376/files/image_41_487e5803-f4d0-489f-ac14-7b301b6cbb92.png?v=1683197427" alt="Bộ Công Thương"> </a>
                     <a href="https://www.dmca.com/Protection/Status.aspx?ID=82a9b6db-8bb5-4f59-b809-e909e4e33dda&refurl=https://supersports.com.vn/"><img src="https://images.dmca.com/Badges/DMCA_logo-grn-btn100w.png?ID=82a9b6db-8bb5-4f59-b809-e909e4e33dda" alt="DMCA Protected"></a>

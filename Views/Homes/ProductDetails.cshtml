@@ -1,0 +1,56 @@
+﻿@model DeAnWEB.Models.ViewModel.ProductDetailsVM
+@{
+    ViewBag.Title = "ProductDetails";
+    <link rel="stylesheet" type="text/css" href="~/Content/Css/CustomerDetailProduct.css" />
+
+}
+
+<div class="container-fluid pro">
+    <div class="div-horizontal">
+        @*Khối bên trái*@
+        <div class="col-md-3 pro-section">
+            <img style="width:100%;height:auto;" src="@Model.product.ProductImage" />
+        </div>
+        @*Khối giữa*@
+        <div class="col-md-5 pro-section">
+            @*Phần thông tin sản phẩm*@
+            <div>
+                <h4><strong>@Html.DisplayFor(model => model.product.ProductName) </strong></h4>
+                <p class="pro-sale">Đã bán:&nbsp; @Model.product.OrderDetails.Count</p>
+                <p class="pro-price">@Model.product.ProductPrice.ToString("C")</p>
+                <p>Tủ sách:&nbsp;@Model.product.Category.CategoryName</p>
+                <hr />
+                <h5><strong>Mô Tả</strong></h5>
+                <p>@Model.product.ProductDescription</p>
+            </div>
+            @*Khối RelatedProduct*@
+            <div>@Html.Partial("_PVRelatedProduct", Model)</div>
+        </div>
+        @*Khối bên phải*@
+        <div class="col-md-3 pro-section">
+            <div class="mb-3">
+                @*Phần tạm tính*@
+                @using (Html.BeginForm("ProductDetails", "Homes", FormMethod.Get))
+                {
+                    <h4><strong>Số lượng</strong></h4>
+                    <p>
+                        @Html.TextBoxFor(model => model.quantity, new
+                 { @class = "form-control", @type = "number", @min = 1 })
+                </p>
+
+                <h4><strong>Tạm tính</strong></h4>
+                <p>$@Model.estimatedValue.ToString("N0")</p>
+
+                <p>
+                    @Html.ActionLink("Thêm vào giỏ hàng", "AddToCart", "Carts",
+                 new { id = Model.product.ProductID, quantity = Model.quantity },
+                 new { @class = "btn btn-info" })
+            </p>
+        }
+                <hr />
+            </div>
+        </div>
+        @*Khối TopProduct*@
+        <div>@Html.Partial("_PVTopProduct", Model)</div>
+    </div>
+</div>

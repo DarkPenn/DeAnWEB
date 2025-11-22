@@ -34,7 +34,7 @@ body {
 /* Empty Cart Styles */
 .empty-cart {
     text-align: center;
-    padding: 80px 20px;
+    padding: 5px 20px;
     border-radius: 8px;
     margin: 20px 0;
 }

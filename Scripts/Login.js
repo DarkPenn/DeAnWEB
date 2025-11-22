@@ -1,5 +1,25 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
-    // ==== CHUYỂN GIỮA 2 FORM ====
+    //  GIỚI HẠN ĐỘ DÀI INPUT (KHÓA KHÔNG CHO NHẬP THÊM) 
+    function setMaxLength(id, maxLength) {
+        const input = document.getElementById(id);
+        if (!input) return;
+
+        input.addEventListener("input", function () {
+            if (this.value.length > maxLength) {
+                this.value = this.value.slice(0, maxLength);
+            }
+        });
+    }
+
+    // Áp dụng giới hạn độ dài
+    setMaxLength("firstName", 14);
+    setMaxLength("lastName", 14);
+    setMaxLength("registerEmail", 28);
+    setMaxLength("registerPassword", 20);
+    setMaxLength("email", 28);
+    setMaxLength("password", 20);
+
+    //  CHUYỂN GIỮA 2 FORM 
     document.getElementById("showRegister").addEventListener("click", function (e) {
         e.preventDefault();
         document.getElementById("loginForm").style.display = "none";
@@ -12,7 +32,7 @@
         document.getElementById("loginForm").style.display = "block";
     });
 
-    // ==== KIỂM TRA ĐĂNG NHẬP ====
+    //  KIỂM TRA ĐĂNG NHẬP 
     document.getElementById("loginBtn").addEventListener("click", function () {
         const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value.trim();
@@ -42,7 +62,7 @@
         successDiv.style.display = "block";
     });
 
-    // ==== KIỂM TRA ĐĂNG KÝ ====
+    //  KIỂM TRA ĐĂNG KÝ 
     document.getElementById("registerBtn").addEventListener("click", function () {
         const firstName = document.getElementById("firstName").value.trim();
         const lastName = document.getElementById("lastName").value.trim();

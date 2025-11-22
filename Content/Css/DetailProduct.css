@@ -13,7 +13,7 @@ html, body {
     color: #111;
 }
 
-/* =================== PAGE LAYOUT =================== */
+/* === PAGE LAYOUT === */
 .allpage {
     max-width: 1400px;
     width: 100%;
@@ -111,7 +111,7 @@ html, body {
             border-color: #111;
         }
 
-/* =================== PRODUCT INFO =================== */
+/* === PRODUCT INFO === */
 .product-info {
     flex: 1 1 48%;
     min-width: 0;
@@ -249,7 +249,7 @@ html, body {
         border: 1px solid #111;
     }
 
-/* =================== DETAILS =================== */
+/* === DETAILS === */
 .product-details {
     display: flex;
     flex-wrap: wrap;
@@ -319,7 +319,7 @@ html, body {
 }
 
 
-/* =================== POPUP =================== */
+/* === POPUP === */
 .popup-overlay {
     position: fixed;
     top: 0;
@@ -351,7 +351,7 @@ html, body {
         cursor: pointer;
     }
 
-/* =================== RESPONSIVE =================== */
+/* === RESPONSIVE === */
 @media (max-width: 1200px) {
     .product-page {
         flex-direction: column;
@@ -409,7 +409,7 @@ html, body {
     }
 }
 
-/* =================== HÌNH ẢNH VÀ SCROLL =================== */
+/* === HÌNH ẢNH VÀ SCROLL === */
 img {
     max-width: 100%;
     height: auto;
