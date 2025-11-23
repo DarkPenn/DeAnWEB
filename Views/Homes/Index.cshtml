@@ -27,11 +27,12 @@
     <div class="combo-container">
         <span style="color:dodgerblue; font-size:30px; font-weight:bold;">Danh mục sản phẩm</span>
     </div>
-    <div class="combo-container">
+    <!--<div class="combo-container">
         <div class="combo">
-            <a href="@Url.Action("Category","Home")"><img src="~/Content/Images/DM.png">  </a> <!--Phần hiện ảnh cho từng category-->
-        </div>
-    </div>
+            <a href="@Url.Action("Category","Homes")"><img src="~/Content/Images/DM.png">  </a>--> <!--Phần hiện ảnh cho từng category-->
+        <!--</div>
+    </div>-->
+
     @*Phần Sản Phẩm Nổi Bật*@
     @Html.Partial("_PVFeatureProduct", Model)
 
@@ -40,20 +41,23 @@
     </div>
     <div class="combo-container">
         <div class="combo">
-            <a href="@Url.Action("Category","Home")"><img src="~/Content/Images/HP_10.10_TOP_NIKE_VN.png" /></a>
+            <img src="~/Content/Images/HP_10.10_TOP_NIKE_VN.png" />
         </div>
         <div class="combo">
-            <a href="@Url.Action("Category","Home")"><img src="~/Content/Images/HP_10.10_TOP_DAS_VN.png" /></a>
+            <img src="~/Content/Images/HP_10.10_TOP_DAS_VN.png" />
         </div>
     </div>
     <div class="combo-container">
         <div class="combo">
-            <a href="@Url.Action("Category","Home")"><img src="~/Content/Images/HP_10.10_TOP_UA_VN.png" /></a>
+            <img src="~/Content/Images/HP_10.10_TOP_UA_VN.png" />
         </div>
         <div class="combo">
-            <a href="@Url.Action("Category","Home")"><img src="~/Content/Images/HP_10.10_TOP_COLUM_VN.png" /></a>
+            <img src="~/Content/Images/HP_10.10_TOP_COLUM_VN.png" />
         </div>
     </div>
+
+    @*Phần Sản Phẩm Theo Danh Mục*@
+    @Html.Partial("_PVNewProduct", Model)
 
     <div class="combo-container">
         <span style="color:dodgerblue; font-size:30px; font-weight:bold;">MÔN THỂ THAO YÊU THÍCH CỦA BẠN</span>

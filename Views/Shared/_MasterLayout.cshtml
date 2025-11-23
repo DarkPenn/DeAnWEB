@@ -1,4 +1,5 @@
-﻿﻿@{
+﻿﻿
+@{
     Layout = null;
 }
 
@@ -45,15 +46,15 @@
             <div class="logo">
                 <a href="@Url.Action("Index","Homes")"><img src="~/Content/Images/logo-color.png" alt="Supersports Logo"></a>
             </div>
-            <div class="search-box">
-                <input style="width:100%; height:auto;" type="text" placeholder="Bạn đang tìm gì">
-                <button style="width:10%;"> <span class="material-symbols-outlined">search</span> </button>
-            </div>
+
+            @*Search Box*@
+            @Html.Partial("_PVSearchBox", ViewBag.SearchTerm as string ?? "")
+
 
             <div class="icons">
                 <a href="@Url.Action("Login","Accounts")" style="color:white;"><span class="material-symbols-outlined">person</span> </a>
                 <a href="@Url.Action("Index","Carts")" style="color:white;"><span class="material-symbols-outlined"> shopping_bag</span> </a>
-                <a href="@Url.Action("OrderHistory","Home")" style="color:white;"><span class="material-symbols-outlined base">inventory_2</span></a>
+                <a href="@Url.Action("OrderHistory","Orders")" style="color:white;"><span class="material-symbols-outlined base">inventory_2</span></a>
                 <img class="flag" src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag">
                 <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
                 <br />
@@ -65,7 +66,7 @@
             <span>🚚 Miễn phí giao hàng đơn từ 699k</span>
             <span>📦 Miễn phí đổi trả đến 30 ngày</span>
             <span>✅ Cam kết 100% chính hãng</span>
-            <a href="@Url.Action("Register_Login","Home")" class="highlight"><span>🏷️ Đăng ký nhận ngay 150k</span></a>
+            <a href="@Url.Action("Register","Accounts")" class="highlight"><span>🏷️ Đăng ký nhận ngay 150k</span></a>
         </div>
     </header>
     <!-- MAIN CONTENT -->

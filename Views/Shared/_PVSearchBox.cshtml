@@ -1,0 +1,14 @@
+﻿@model string
+
+@using (Html.BeginForm("Index", "Homes", FormMethod.Get))
+{
+    <div class="search-box">
+        @Html.TextBox("SearchTerm", Model, new
+        {
+            @class = "search-input",
+            placeholder = "Nhập tên, mô tả, chủng loại sản phẩm"
+        })
+        <button type="submit" class="search-button">🔍</button>
+    </div>
+}
+

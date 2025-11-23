@@ -439,6 +439,9 @@
     <Content Include="Views\Orders\Checkout.cshtml" />
     <Content Include="Views\Accounts\Register.cshtml" />
     <Content Include="Views\Accounts\Login.cshtml" />
+    <Content Include="Views\Orders\OrderSuccess.cshtml" />
+    <Content Include="Views\Shared\_PVSearchBox.cshtml" />
+    <Content Include="Views\Orders\OrderHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

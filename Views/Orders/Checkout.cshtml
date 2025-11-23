@@ -5,6 +5,7 @@
 }
 @section styles {
     <link rel="stylesheet" href="~/Content/Css/DeliverLocate.css" />
+    <link rel="stylesheet" href="~/Content/Css/Payment_List.css" />
 }
 <!DOCTYPE html>
 <html lang="vi">
@@ -14,16 +15,22 @@
     <title>Thanh toán</title>
 </head>
 <body>
-    <div class="allpage">
-        <main class="checkout-container">
-            <section class="checkout-left">
-                <form id="checkoutForm" novalidate>
+    @using (Html.BeginForm("Checkout", "Orders", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="allpage">
+            <main class="checkout-container">
+                <!-- LEFT SIDE -->
+
+                <section class="checkout-left">
                     <div class="section-heading">
                         <h3>Thông tin liên lạc</h3>
-                        <a href="@Url.Action("Register_Login","Home")" class="login-link">Đăng nhập</a>
                     </div>
-                    <div id="email-input-container">
-                        <input type="email" id="email" placeholder="example@gmail.com" value="@Model.Email">
+                    <!-- EMAIL -->
+                    <div class="form-field-group">
+                        @Html.LabelFor(m => m.Email)
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "example@gmail.com", maxlength = "30" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "error-text" })
                     </div>
                     <div class="checkbox-container">
                         <input type="checkbox" id="subscribe" checked>
@@ -41,19 +48,21 @@
                         </div>
                     </div>
 
+                    <!-- NAME -->
+                    <h3>Thông tin người nhận</h3>
                     <div class="form-field-group">
-                        <div>
-                            <input type="text" id="name" placeholder="Tên" value="@Model.Name" class="error-border">
-                            <div class="error-text" id="err-name"></div>
-                        </div>
-                     
+                        @Html.LabelFor(m => m.Name)
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Tên người nhận", maxlength = "30" })
+                        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "error-text" })
                     </div>
 
+
+                    <!-- ADDRESS -->
+                    <h3>Địa chỉ giao hàng</h3>
                     <div class="form-field-group">
-                        <div>
-                            <input type="text" id="address" placeholder="Địa chỉ nhận hàng (Số nhà, đường phố, hẻm, Căn hộ...)" value="@Model.ShippingAddress" class="error-border">
-                            <div class="error-text" id="err-address">Trường này là bắt buộc</div>
-                        </div>
+                        @Html.LabelFor(m => m.ShippingAddress)
+                        @Html.TextBoxFor(m => m.ShippingAddress, new { @class = "form-control", placeholder = "Số nhà, đường, hẻm...", maxlength = "50" })
+                        @Html.ValidationMessageFor(m => m.ShippingAddress, "", new { @class = "error-text" })
                     </div>
 
                     <div class="form-field-group">
@@ -63,7 +72,6 @@
                                 <option value="Hà Nội">Hà Nội</option>
                                 <option value="Đà Lạt">Đà Lạt</option>
                             </select>
-                            <div class="error-text" id="err-city">Trường này là bắt buộc</div>
                         </div>
                         <div>
                             <input type="text" id="zipCode" placeholder="Mã bưu điện (Thông tin điền tự động...)" value="0123531" disabled>
@@ -71,47 +79,13 @@
                         </div>
                     </div>
 
-                    <div class="form-field-group">
-                        <div>
-                            <select id="district" class="error-border">
-                                <option value="">Chọn Quận/Huyện</option>
-                                <option>Quận 1</option>
-                                <option>Quận 2</option>
-                                <option>Quận 3</option>
-                                <option>Quận 4</option>
-                                <option>Quận 5</option>
-                                <option>Quận 6</option>
-                                <option>Quận 7</option>
-                                <option>Quận 8</option>
-                            </select>
-                            <div class="error-text" id="err-district">Trường này là bắt buộc</div>
-                        </div>
-                        <div>
-                            <select id="ward" class="error-border">
-                                <option value="">Chọn Phường/Xã</option>
-                                <option>Phường 1</option>
-                                <option>Phường 2</option>
-                                <option>Phường 3</option>
-                                <option>Phường 3</option>
-                                <option>Phường 4</option>
-                                <option>Phường 5</option>
-                                <option>Phường 6</option>
-                                <option>Phường 7</option>
-                                <option>Phường 8</option>
-                            </select>
-                            <div class="error-text" id="err-ward">Trường này là bắt buộc</div>
-                        </div>
-                    </div>
 
+
+                    <!-- PHONE -->
                     <div class="form-field-group">
-                        <div>
-                            <label for="phone">Điện thoại</label>
-                            <div class="phone-input-group">
-                                <input type="text" id="phone" placeholder="0xxxxxxxxx" value="@Model.Phone">
-                                <span class="phone-info-icon">ⓘ</span>
-                            </div>
-                            <div class="error-text" id="err-phone"></div>
-                        </div>
+                        @Html.LabelFor(m => m.Phone)
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "0xxxxxxxxx", maxlength = "10" })
+                        @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "error-text" })
                     </div>
 
                     <div class="checkbox-container">
@@ -119,154 +93,125 @@
                         <label for="saveAddress">Lưu địa chỉ này</label>
                     </div>
 
+                    <!-- SUBMIT BUTTON -->
                     <div class="action-buttons">
-                        <a href="@Url.Action("Index","Carts")" class="back-link">&lt; Quay trở lại giỏ hàng</a>
-                        <a href="@Url.Action("Payment_List","Home")"><p id="orderBtn" class="next-button">Chọn hình thức thanh toán ></p></a>
+                        <a href="@Url.Action("Index", "Carts")" class="back-link">&lt; Quay lại giỏ hàng</a>
+                        <button type="submit" class="pay-button">Tiếp tục thanh toán ></button>
+                    </div>
+                </section>
+
+                <!-- RIGHT SECTION -->
+                <section class="checkout-right">
+                    <h3>Đơn hàng</h3>
+                    @foreach (var item in Model.CartItems)
+                    {
+                        <div class="product">
+                            <div class="product-image-container">
+                                <img src="@item.ProductImage" />
+                                <span class="quantity-badge">@item.Quantity</span>
+                            </div>
+
+                            <div class="product-info">
+                                <p class="product-name">@item.ProductName</p>
+                            </div>
+
+                            <p class="product-price">@item.TotalPrice.ToString("N0") ₫</p>
+                        </div>
+                    }
+
+                    <div class="summary-line">
+                        <span>Tổng tiền hàng</span>
+                        <span class="amount">@Model.TotalAmount.ToString("N0") ₫</span>
+                    </div>
+                    <div class="mb-3">
+                        @Html.Label("Phương thức giao hàng", new { @class = "col-form-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.RadioButtonFor(m => m.ShippingMethod, "Giao hàng nhanh") Giao hàng nhanh <br />
+                            @Html.RadioButtonFor(m => m.ShippingMethod, "Giao hàng tiết kiệm") Giao hàng tiết kiệm
+                            <br />
+                            @Html.ValidationMessageFor(m => m.ShippingMethod, "", new { @class = "error-text" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="summary-line">
+                        <span>Phí vận chuyển </span>
+                        <span class="amount">MIỄN PHÍ</span>
+                    </div>
+                    <h3>Thanh toán</h3>
+                    <p class="payment-note">Địa chỉ thanh toán của phương thức thanh toán phải khớp với địa chỉ giao hàng. Toàn bộ các giao dịch được bảo mật và mã hóa.</p>
+
+                    <div class="payment-method">
+                        <div class="payment-options">
+                            @Html.RadioButtonFor(m => m.PaymentMethod, "onepay", new { @id = "onepay" })
+                            <label for="onepay" class="payment-option">
+                                <span class="payment-name">Cổng OnePAY - Thẻ ATM/QR/MoMo</span>
+                                <div class="card-logos">
+                                    <img src="~/Content/Images/VISA.jfif" alt="VISA" />
+                                    <img src="~/Content/Images/mastercard.jpg" alt="MasterCard" />
+                                    <img src="~/Content/Images/JCB.jpg" alt="JCB" />
+                                    <img src="~/Content/Images/MoMo.jpg" alt="MoMo" />
+                                </div>
+                            </label>
+
+                            @Html.RadioButtonFor(m => m.PaymentMethod, "installment", new { @id = "installment" })
+                            <label for="installment" class="payment-option">
+                                <span class="payment-name">Trả góp 0% lãi suất qua thẻ tín dụng</span>
+                                <div class="card-logos-small">
+                                    <img src="~/Content/Images/VISA.jfif" alt="VISA" />
+                                    <img src="~/Content/Images/mastercard.jpg" alt="MasterCard" />
+                                    <img src="~/Content/Images/JCB.jpg" alt="JCB" />
+                                    <img src="~/Content/Images/AMEX.jpg" alt="Amex" />
+                                </div>
+                            </label>
+
+                            @Html.RadioButtonFor(m => m.PaymentMethod, "zalopay", new { @id = "zalopay" })
+                            <label for="zalopay" class="payment-option">
+                                <span class="payment-name">Ví ZaloPay</span>
+                                <div class="card-logos-small">
+                                    <img src="~/Content/Images/Zalo.jpg" alt="ZaloPay" />
+                                    <img src="~/Content/Images/mastercard.jpg" alt="MasterCard" />
+                                    <img src="~/Content/Images/VISA.jfif" alt="VISA" />
+                                </div>
+                            </label>
+
+                            @Html.RadioButtonFor(m => m.PaymentMethod, "momo-onepay", new { @id = "momo-onepay" })
+                            <label for="momo-onepay" class="payment-option">
+                                <span class="payment-name">Thanh toán MoMo qua OnePay</span>
+                                <div class="card-logos-small">
+                                    <img src="~/Content/Images/MoMo.jpg" alt="MoMo" />
+                                    <img src="~/Content/Images/Onepay.jpg" alt="OnePay" />
+                                </div>
+                            </label>
+
+                            @Html.RadioButtonFor(m => m.PaymentMethod, "cod", new { @id = "cod" })
+                            <label for="cod" class="payment-option">
+                                <span class="payment-name">Thanh toán khi nhận hàng (COD)</span>
+                            </label>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.PaymentMethod, "", new { @class = "error-text" })
+
+                    <div class="terms-agreement">
+                        <input type="checkbox" id="terms" checked>
+                        <label for="terms">Tôi đồng ý với <a href="#">Điều khoản và Chính sách</a> quy định bởi Supersports*</label>
                     </div>
 
-                    <div class="footer-links" style="margin-top: 20px;">
-                        <a href="#">Chính sách đổi trả</a> | <a href="#">Chính sách vận chuyển</a> | <a href="#">Chính sách quyền riêng tư</a> | <a href="#">Điều khoản dịch vụ</a>
+                    <div class="total-section">
+                        <span class="total-label">Tổng thanh toán</span>
+                        <div class="total-amount-container">
+                            <span class="total-final-amount">@Model.TotalAmount.ToString("N0") ₫</span>
+                        </div>
                     </div>
-                </form>
-            </section>
-
-            <section class="checkout-right">
-                <h3>Đơn hàng</h3>
-                <div id="checkoutProductList" class="product-list">
-                    
-                </div>
-
-                <div class="coupon-section">
-                    <input type="text" placeholder="Nhập mã khuyến mãi" />
-                    <button>Áp dụng</button>
-                </div>
-
-                <div class="summary-line">
-                    <span>Tổng tiền hàng</span>
-                    <span class="amount">2.400.000 ₫</span>
-                </div>
-                <div class="summary-line">
-                    <span>Phí vận chuyển <span class="shipping-info-icon">ⓘ</span></span>
-                    <span class="amount">MIỄN PHÍ</span>
-                </div>
-
-                <div class="total-section">
-                    <span class="total-label">Tổng thanh toán</span>
-                    <div class="total-amount-container">
-                        <span class="vnd-label">VND</span>
-                        <span class="total-final-amount">2.400.000 ₫</span>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
-
-    <script>
-
-    // Hàm render giỏ hàng lên mục "Đơn hàng"
-    function renderCheckoutCart() {
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const container = document.getElementById("checkoutProductList");
-        let total = 0;
-
-        if (!container) return;
-
-        if (cart.length === 0) {
-            container.innerHTML = `<p>Giỏ hàng trống</p>`;
-            document.querySelector(".summary-line .amount").textContent = "0 ₫";
-            document.querySelector(".total-final-amount").textContent = "0 ₫";
-            return;
-        }
-
-        let html = "";
-        cart.forEach(item => {
-            const itemTotal = item.price * item.qty;
-            total += itemTotal;
-
-            html += `
-                <div class="product">
-                    <div class="product-image-container">
-                        <img src="${item.image}" alt="${item.name}">
-                        <span class="quantity-badge">${item.qty}</span>
-                    </div>
-                    <div class="product-info">
-                        <p class="product-name">${item.name}</p>
-                        <p class="product-variant">${item.variant}</p>
-                    </div>
-                    <p class="product-price">${itemTotal.toLocaleString()} ₫</p>
-                </div>
-            `;
-        });
-
-        container.innerHTML = html;
-
-        // Cập nhật tổng tiền
-        document.querySelector(".summary-line .amount").textContent = total.toLocaleString() + " ₫";
-        document.querySelector(".total-final-amount").textContent = total.toLocaleString() + " ₫";
+                </section>                
+            </main>
+        </div>
     }
-
-    // Khi trang load, render luôn giỏ hàng
-    document.addEventListener("DOMContentLoaded", function() {
-        renderCheckoutCart();
-    });
-
-    // Xử lý nút Chọn hình thức thanh toán
-    document.getElementById('orderBtn').addEventListener('click', function (e) {
-        e.preventDefault(); // ngăn link mặc định
-
-        const fields = {
-            email: document.getElementById('email'),
-            name: document.getElementById('name'),
-            lastName: document.getElementById('lastName'),
-            address: document.getElementById('address'),
-            city: document.getElementById('city'),
-            district: document.getElementById('district'),
-            ward: document.getElementById('ward'),
-            phone: document.getElementById('phone'),
-            note: document.getElementById('note') || { value: '' }
-        };
-
-        // Reset lỗi
-        document.querySelectorAll('.error-text').forEach(e => e.textContent = '');
-        document.querySelectorAll('input, select').forEach(el => el.classList.remove('error-border'));
-
-        let valid = true;
-        const requiredFields = ['name', 'lastName', 'address', 'city', 'district', 'ward', 'phone'];
-
-        for (const key of requiredFields) {
-            const field = fields[key];
-            if (field && (field.value.trim() === '' || field.value.includes('Chọn'))) {
-                document.getElementById(`err-${key}`).textContent = 'Trường này là bắt buộc';
-                field.classList.add('error-border');
-                valid = false;
-            }
-        }
-
-        if (fields.phone.value.trim() !== '' && !/^(0|\+84)[0-9]{9,10}$/.test(fields.phone.value.trim())) {
-            document.getElementById('err-phone').textContent = '⚠️ Số điện thoại không hợp lệ.';
-            fields.phone.classList.add('error-border');
-            valid = false;
-        }
-
-        if (valid) {
-            const shippingInfo = {
-                name: fields.lastName.value.trim() + ' ' + fields.name.value.trim(),
-                email: fields.email.value.trim(),
-                phone: fields.phone.value.trim(),
-                address: fields.address.value.trim(),
-                city: fields.city.value.trim() + ', ' + fields.district.value.trim() + ', ' + fields.ward.value.trim(),
-                note: fields.note.value.trim(),
-                shipping: "Phí vận chuyển - MIỄN PHÍ"
-            };
-            localStorage.setItem("shippingInfo", JSON.stringify(shippingInfo));
-
-            // Chuyển sang trang Payment_List
-            window.location.href = '@Url.Action("Payment_List", "Home")';
-        }
-    });
-    </script>
 </body>
 </html>
 
+@section scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+}
 
 

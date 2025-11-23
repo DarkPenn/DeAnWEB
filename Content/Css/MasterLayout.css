@@ -134,12 +134,14 @@ header {
 
 /* Search box */
 .search-box {
-    width: 60%;
+    width: 100%;
     display: flex;
     background-color: #34495e;
     border-radius: 6px;
     overflow: hidden;
     align-items: center;
+    flex-direction: row-reverse;
+    max-width:600px;
 }
 
     .search-box input {
@@ -148,7 +150,7 @@ header {
         background: transparent;
         color: white;
         outline: none;
-        width: 200px;
+        width: 400px;
     }
 
     .search-box button {
@@ -262,7 +264,7 @@ header {
     }
 
     .search-box input {
-        width: 150px;
+        width: 400px;
     }
 
     .icons {
@@ -282,7 +284,9 @@ header {
     .main-header {
         padding: 10px 15px;
     }
-
+    .search-box input {
+        width: 300px;
+    }
     .nav-menu ul {
         flex-direction: column;
         gap: 6px;
@@ -321,7 +325,6 @@ header {
         justify-content: center;
         margin: 8px 0;
     }
-
         .search-box input {
             width: 70%;
             text-align: center;

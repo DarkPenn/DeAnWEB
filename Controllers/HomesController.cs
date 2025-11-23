@@ -22,6 +22,8 @@ namespace DeAnWEB.Controllers
             var model = new HomeProductVM();
             var products = db.Products.AsQueryable();
             //Tìm kiếm theo từ khóa
+            // truyền vào ViewBag để Layout/Partial dùng
+            ViewBag.SearchTerm = SearchTerm ?? "";
             if (!string.IsNullOrEmpty(SearchTerm))
             {
                 model.SearchTerm = SearchTerm;

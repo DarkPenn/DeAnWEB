@@ -1,42 +1,38 @@
 ﻿@model DeAnWEB.Models.ViewModel.HomeProductVM
-@using PagedList.Mvc;
 <link rel="stylesheet" type="text/css" href="~/Content/Css/Home.css" />
 
-<!--Hiển thị danh sách sản phẩm-->
-@if (Model.NewProducts != null && Model.NewProducts.Any())
+@{
+    Func<IEnumerable<DeAnWEB.Models.Product>, string, IEnumerable<DeAnWEB.Models.Product>> filterByCat =
+        (list, cat) => list.Where(p => p.Category != null && p.Category.CategoryName == cat);
+}
+
+@{
+    var categories = new[] { "Giày Nikke", "Giày Adidas", "Giày Sneaker" };
+}
+
+@foreach (var cat in categories)
 {
-    <section class="container-fluid listProduct">
-        <h2>Sản Phẩm Mới</h2>
-        <ul class="list-container">
-            @foreach (var product in Model.NewProducts)
-            {
-                <li class="lproduct-item">
-                    <div>
-                        <a href="@Url.Action("ProductDetails","Home",new {id=product.ProductID})">
-                            <img src="@Html.DisplayFor(modelItem => product.ProductImage)" />
+    var items = filterByCat(Model.NewProducts, cat).ToList();
+
+    if (items.Any())
+    {
+        <section class="container-fluid featureProd">
+            <h2>@cat</h2>
+
+            <div class="feature-container">
+
+                @foreach (var p in items)
+                {
+                    <div class="fproduct-item">
+                        <a href="@Url.Action("ProductDetails", "Homes", new { id = p.ProductID })">
+                            <img src="@(!string.IsNullOrEmpty(p.ProductImage) ? Url.Content(p.ProductImage) : Url.Content("~/Content/no-image.png"))" />
+                            <p class="prodPrice">@p.ProductPrice.ToString("N0") đ</p>
+                            <p class="prodName">@p.ProductName</p>                           
                         </a>
                     </div>
-                    <div>
-                        <p class="prodPrice">@Html.DisplayFor(modelItem => product.ProductPrice) </p>
-                        <p class="prodName">@Html.DisplayFor(modelItem => product.ProductName) </p>
-                        <p class="prodSale">
-                            Đã bán:&nbsp;@Html.DisplayFor(modelItem => product.OrderDetails.Count)
-                        </p>
-                    </div>
-                </li>
-            }
-        </ul>
-    </section>
-    <!-- Hiển thị phân trang -->
-    <div class="pagination-container">
-        @Html.PagedListPager(Model.NewProducts, page => Url.Action("Index", new
-        {
-            page,
-            searchTerm = Model.SearchTerm
-        }))
-    </div>
-}
-else
-{
-    <p>Không tìm được sản phẩm nào phù hợp</p>
+                }
+
+            </div>
+        </section>
+    }
 }

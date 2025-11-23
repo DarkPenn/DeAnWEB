@@ -18,7 +18,7 @@ namespace DeAnWEB.Controllers
             return View();
         }
 
-        // GET: Order/DeliverLocate
+        // GET: Orders/Checkout
         [Authorize]
         public ActionResult Checkout()
         {
@@ -27,17 +27,17 @@ namespace DeAnWEB.Controllers
             var cart = Session["Cart"] as Cart;
             if (cart == null || !cart.Items.Any())
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Homes");
             }
 
             //Xác thực người dùng đã đăng nhập chưa, chưa thì chuyển hướng tới trang Đăng nhập
             var user = db.Users.SingleOrDefault(u => u.Username == User.Identity.Name);
-            if (user == null) { return RedirectToAction("Login", "Account"); }
+            if (user == null) { return RedirectToAction("Login", "Accounts"); }
 
             //Lấy thông tin khách từ CSDL,nếu chưa thì chuyển tới trang Đăng nhập,
             //nếu có rồi thì lấy địa chỉ khách hàng và gán vào ShippingAddress của CheckoutVM
             var customer = db.Customers.SingleOrDefault(c => c.Username == user.Username);
-            if (customer == null) { return RedirectToAction("Login", "Account"); }
+            if (customer == null) { return RedirectToAction("Login", "Accounts"); }
             var model = new CheckoutVM
             {//tạo dữ liệu hiển thị cho CheckoutVM
                 CartItems = cart.Items.ToList(), //Lấy danh sách các sản phẩm trong giỏ
@@ -52,7 +52,7 @@ namespace DeAnWEB.Controllers
             };
             return View(model);
         }
-        //POST: Order/DeliverLocate
+        //POST: Orders/Checkout
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
@@ -62,15 +62,15 @@ namespace DeAnWEB.Controllers
             {
                 var cart = Session["Cart"] as Cart;
                 //Nếu giỏ hàng rồng sẽ điều hướng tới Home
-                if (cart == null || !cart.Items.Any()) { return RedirectToAction("Index", "Home"); }
+                if (cart == null || !cart.Items.Any()) { return RedirectToAction("Index", "Homes"); }
 
                 //Nếu người dùng chưa đăng nhập sẽ hướng tới Login
                 var user = db.Users.SingleOrDefault(u => u.Username == User.Identity.Name);
-                if (user == null) { return RedirectToAction("Login", "Account"); }
+                if (user == null) { return RedirectToAction("Login", "Accounts"); }
 
                 //Nếu khách hàng không khớp với tên đăng nhập sẽ điều hướng tới trang Login
                 var customer = db.Customers.SingleOrDefault(c => c.Username == user.Username);
-                if (customer == null) { return RedirectToAction("Login", "Account"); }
+                if (customer == null) { return RedirectToAction("Login", "Accounts"); }
 
                 //Nếu người dùng chọn thanh toán bằng PayPal, điều hướng tới trang PaymentWithPaypal
                 if (model.PaymentMethod == "Paypal") { return RedirectToAction("PaymentWithPaypal", "PayPal", model); }
@@ -79,12 +79,15 @@ namespace DeAnWEB.Controllers
                 string paymentStatus = "Chưa thanh toán";
                 switch (model.PaymentMethod)
                 {
-                    case "Tiền mặt": paymentStatus = "Thanh toán tiền mặt!"; break;
-                    case "Paypal": paymentStatus = "Thanh toán paypal!"; break;
-                    case "Mua trước trả sau": paymentStatus = "Trả góp!"; break;
+                    case "zalopay": paymentStatus = "Đã thanh toán qua zalopay!"; break;
+                    case "onepay": paymentStatus = "Đã thanh toán qua onepay!"; break;
+                    case "installment": paymentStatus = "Đã thanh toán qua installment!"; break;
+                    case "momo-onepay": paymentStatus = "Đã thanh toán qua momo-onepay!"; break;
+                    case "cod": paymentStatus = "Đợi thanh toán bằng tiền mặt(cod)!"; break;
                     default: paymentStatus = "Chưa thanh toán!"; break;
                 }
 
+                var totalAmount = cart.Items.Sum(i => i.TotalPrice);
                 //Tạo đơn hàng và chi tiết đơn hàng liên quan
                 var order = new Order
                 {
@@ -111,6 +114,7 @@ namespace DeAnWEB.Controllers
                 //Xóa giỏ hàng sau khi đặt hàng thành công
                 Session["Cart"] = null;
 
+                TempData["SuccessMessage"] = "Thanh toán thành công!";
                 //Điều hướng tới trang xác nhận đơn hàng
                 return RedirectToAction("OrderSuccess", new { id = order.OrderID });
             }
@@ -125,6 +129,44 @@ namespace DeAnWEB.Controllers
                 return HttpNotFound();
             }
             return View(order);
+        }
+        // GET: Orders/OrderHistory
+        public ActionResult OrderHistory(string searchDate)
+        {
+            // Giả sử Username đang login lưu trong Session["Username"]
+            string username = Session["Username"] as string;
+            if (string.IsNullOrEmpty(username))
+                return RedirectToAction("Login", "Accounts");
+
+            // Lấy CustomerID từ Username
+            var customer = db.Customers.FirstOrDefault(c => c.Username == username);
+            if (customer == null)
+                return HttpNotFound();
+
+            // Lấy danh sách đơn hàng của khách
+            var orders = db.Orders
+                .Where(o => o.CustomerID == customer.CustomerID)
+                .OrderByDescending(o => o.OrderDate)
+                .ToList();
+
+            // Lọc theo ngày nếu có searchDate
+            if (!string.IsNullOrEmpty(searchDate))
+            {
+                if (DateTime.TryParse(searchDate, out DateTime dt))
+                {
+                    orders = orders.Where(o => o.OrderDate == dt).ToList();
+                }
+            }
+
+            return View(orders); // Truyền trực tiếp list Order
+        }
+
+        // POST: Orders/OrderHistory
+        [HttpPost]
+        public ActionResult OrderHistory(FormCollection form)
+        {
+            string searchDate = form["searchDate"];
+            return RedirectToAction("OrderHistory", new { searchDate = searchDate });
         }
     }
 }
