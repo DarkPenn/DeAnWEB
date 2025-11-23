@@ -142,6 +142,7 @@
     <Compile Include="Areas\Admin\Controllers\AdminOrdersController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminUsersController.cs" />
+    <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\HomesController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
@@ -435,7 +436,9 @@
     <Content Include="Views\Homes\Index.cshtml" />
     <Content Include="Views\Homes\ProductDetails.cshtml" />
     <Content Include="Views\Carts\Index.cshtml" />
-    <Content Include="Views\Orders\DeliverLocate.cshtml" />
+    <Content Include="Views\Orders\Checkout.cshtml" />
+    <Content Include="Views\Accounts\Register.cshtml" />
+    <Content Include="Views\Accounts\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -6,7 +6,13 @@
     min-height: 70vh;
     padding-top: 30px
 }
-
+.accountbtn {
+    width: 275px;
+    height: 40px;
+    border: 1px solid #808080;
+    margin: 5px;
+    align-items: center;
+}
 .login-box {
     width: 600px;
     text-align: left;

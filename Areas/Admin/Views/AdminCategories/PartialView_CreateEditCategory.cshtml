@@ -6,7 +6,7 @@
     @*@Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-md-2" })*@
     <div class="control-label col-md-10">Tên Danh Mục</div>
     <div class="col-md-10">
-        @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control", maxlength = "20" } })
         @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
     </div>
 </div>

@@ -33,6 +33,10 @@ namespace DeAnWEB.Models.ViewModel
 
         public string Username { get; set; }
 
+        public string Email { get; set; }
+        public string Name { get; set; }
+        public string Phone { get; set; }
+
         //Các thuộc tính khác của đơn hàng
         public List<OrderDetail> OrderDetails { get; set; }
     }

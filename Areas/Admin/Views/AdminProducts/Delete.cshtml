@@ -10,7 +10,7 @@
 
 @Html.Partial("PartialView_DetailDelete", Model)
 
-@using (Html.BeginForm("Delete", "Products", FormMethod.Post))
+@using (Html.BeginForm("Delete", "AdminProducts", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.ProductID)

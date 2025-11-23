@@ -28,6 +28,7 @@ namespace DeAnWEB.Models.ViewModel
         public string CustomerName { get; set; }
 
         [Required]
+        [RegularExpression(@"^0\d{9}$", ErrorMessage = "Số điện thoại phải bắt đầu bằng 0 và đủ 10 số.")]
         [Display(Name = "Số điện thoại")]
         [DataType(DataType.PhoneNumber)]
         public string CustomerPhone { get; set; }

@@ -1,0 +1,272 @@
+﻿﻿@model DeAnWEB.Models.ViewModel.CheckoutVM
+
+@{
+    ViewBag.Title = "Pay";
+}
+@section styles {
+    <link rel="stylesheet" href="~/Content/Css/DeliverLocate.css" />
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán</title>
+</head>
+<body>
+    <div class="allpage">
+        <main class="checkout-container">
+            <section class="checkout-left">
+                <form id="checkoutForm" novalidate>
+                    <div class="section-heading">
+                        <h3>Thông tin liên lạc</h3>
+                        <a href="@Url.Action("Register_Login","Home")" class="login-link">Đăng nhập</a>
+                    </div>
+                    <div id="email-input-container">
+                        <input type="email" id="email" placeholder="example@gmail.com" value="@Model.Email">
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="subscribe" checked>
+                        <label for="subscribe">Gửi cho tôi tin tức và ưu đãi qua email</label>
+                    </div>
+
+                    <h3>Địa chỉ giao hàng</h3>
+                    <p class="shipping-note">Địa chỉ này cũng sẽ được dùng làm địa chỉ thanh toán cho đơn hàng này.</p>
+
+                    <div class="form-field-group">
+                        <div>
+                            <select id="country">
+                                <option>Việt Nam</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-field-group">
+                        <div>
+                            <input type="text" id="name" placeholder="Tên" value="@Model.Name" class="error-border">
+                            <div class="error-text" id="err-name"></div>
+                        </div>
+                     
+                    </div>
+
+                    <div class="form-field-group">
+                        <div>
+                            <input type="text" id="address" placeholder="Địa chỉ nhận hàng (Số nhà, đường phố, hẻm, Căn hộ...)" value="@Model.ShippingAddress" class="error-border">
+                            <div class="error-text" id="err-address">Trường này là bắt buộc</div>
+                        </div>
+                    </div>
+
+                    <div class="form-field-group">
+                        <div>
+                            <select id="city" class="error-border">
+                                <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                                <option value="Hà Nội">Hà Nội</option>
+                                <option value="Đà Lạt">Đà Lạt</option>
+                            </select>
+                            <div class="error-text" id="err-city">Trường này là bắt buộc</div>
+                        </div>
+                        <div>
+                            <input type="text" id="zipCode" placeholder="Mã bưu điện (Thông tin điền tự động...)" value="0123531" disabled>
+                            <div class="error-text" id="err-zipCode"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-field-group">
+                        <div>
+                            <select id="district" class="error-border">
+                                <option value="">Chọn Quận/Huyện</option>
+                                <option>Quận 1</option>
+                                <option>Quận 2</option>
+                                <option>Quận 3</option>
+                                <option>Quận 4</option>
+                                <option>Quận 5</option>
+                                <option>Quận 6</option>
+                                <option>Quận 7</option>
+                                <option>Quận 8</option>
+                            </select>
+                            <div class="error-text" id="err-district">Trường này là bắt buộc</div>
+                        </div>
+                        <div>
+                            <select id="ward" class="error-border">
+                                <option value="">Chọn Phường/Xã</option>
+                                <option>Phường 1</option>
+                                <option>Phường 2</option>
+                                <option>Phường 3</option>
+                                <option>Phường 3</option>
+                                <option>Phường 4</option>
+                                <option>Phường 5</option>
+                                <option>Phường 6</option>
+                                <option>Phường 7</option>
+                                <option>Phường 8</option>
+                            </select>
+                            <div class="error-text" id="err-ward">Trường này là bắt buộc</div>
+                        </div>
+                    </div>
+
+                    <div class="form-field-group">
+                        <div>
+                            <label for="phone">Điện thoại</label>
+                            <div class="phone-input-group">
+                                <input type="text" id="phone" placeholder="0xxxxxxxxx" value="@Model.Phone">
+                                <span class="phone-info-icon">ⓘ</span>
+                            </div>
+                            <div class="error-text" id="err-phone"></div>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="saveAddress">
+                        <label for="saveAddress">Lưu địa chỉ này</label>
+                    </div>
+
+                    <div class="action-buttons">
+                        <a href="@Url.Action("Index","Carts")" class="back-link">&lt; Quay trở lại giỏ hàng</a>
+                        <a href="@Url.Action("Payment_List","Home")"><p id="orderBtn" class="next-button">Chọn hình thức thanh toán ></p></a>
+                    </div>
+
+                    <div class="footer-links" style="margin-top: 20px;">
+                        <a href="#">Chính sách đổi trả</a> | <a href="#">Chính sách vận chuyển</a> | <a href="#">Chính sách quyền riêng tư</a> | <a href="#">Điều khoản dịch vụ</a>
+                    </div>
+                </form>
+            </section>
+
+            <section class="checkout-right">
+                <h3>Đơn hàng</h3>
+                <div id="checkoutProductList" class="product-list">
+                    
+                </div>
+
+                <div class="coupon-section">
+                    <input type="text" placeholder="Nhập mã khuyến mãi" />
+                    <button>Áp dụng</button>
+                </div>
+
+                <div class="summary-line">
+                    <span>Tổng tiền hàng</span>
+                    <span class="amount">2.400.000 ₫</span>
+                </div>
+                <div class="summary-line">
+                    <span>Phí vận chuyển <span class="shipping-info-icon">ⓘ</span></span>
+                    <span class="amount">MIỄN PHÍ</span>
+                </div>
+
+                <div class="total-section">
+                    <span class="total-label">Tổng thanh toán</span>
+                    <div class="total-amount-container">
+                        <span class="vnd-label">VND</span>
+                        <span class="total-final-amount">2.400.000 ₫</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+
+    // Hàm render giỏ hàng lên mục "Đơn hàng"
+    function renderCheckoutCart() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const container = document.getElementById("checkoutProductList");
+        let total = 0;
+
+        if (!container) return;
+
+        if (cart.length === 0) {
+            container.innerHTML = `<p>Giỏ hàng trống</p>`;
+            document.querySelector(".summary-line .amount").textContent = "0 ₫";
+            document.querySelector(".total-final-amount").textContent = "0 ₫";
+            return;
+        }
+
+        let html = "";
+        cart.forEach(item => {
+            const itemTotal = item.price * item.qty;
+            total += itemTotal;
+
+            html += `
+                <div class="product">
+                    <div class="product-image-container">
+                        <img src="${item.image}" alt="${item.name}">
+                        <span class="quantity-badge">${item.qty}</span>
+                    </div>
+                    <div class="product-info">
+                        <p class="product-name">${item.name}</p>
+                        <p class="product-variant">${item.variant}</p>
+                    </div>
+                    <p class="product-price">${itemTotal.toLocaleString()} ₫</p>
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+
+        // Cập nhật tổng tiền
+        document.querySelector(".summary-line .amount").textContent = total.toLocaleString() + " ₫";
+        document.querySelector(".total-final-amount").textContent = total.toLocaleString() + " ₫";
+    }
+
+    // Khi trang load, render luôn giỏ hàng
+    document.addEventListener("DOMContentLoaded", function() {
+        renderCheckoutCart();
+    });
+
+    // Xử lý nút Chọn hình thức thanh toán
+    document.getElementById('orderBtn').addEventListener('click', function (e) {
+        e.preventDefault(); // ngăn link mặc định
+
+        const fields = {
+            email: document.getElementById('email'),
+            name: document.getElementById('name'),
+            lastName: document.getElementById('lastName'),
+            address: document.getElementById('address'),
+            city: document.getElementById('city'),
+            district: document.getElementById('district'),
+            ward: document.getElementById('ward'),
+            phone: document.getElementById('phone'),
+            note: document.getElementById('note') || { value: '' }
+        };
+
+        // Reset lỗi
+        document.querySelectorAll('.error-text').forEach(e => e.textContent = '');
+        document.querySelectorAll('input, select').forEach(el => el.classList.remove('error-border'));
+
+        let valid = true;
+        const requiredFields = ['name', 'lastName', 'address', 'city', 'district', 'ward', 'phone'];
+
+        for (const key of requiredFields) {
+            const field = fields[key];
+            if (field && (field.value.trim() === '' || field.value.includes('Chọn'))) {
+                document.getElementById(`err-${key}`).textContent = 'Trường này là bắt buộc';
+                field.classList.add('error-border');
+                valid = false;
+            }
+        }
+
+        if (fields.phone.value.trim() !== '' && !/^(0|\+84)[0-9]{9,10}$/.test(fields.phone.value.trim())) {
+            document.getElementById('err-phone').textContent = '⚠️ Số điện thoại không hợp lệ.';
+            fields.phone.classList.add('error-border');
+            valid = false;
+        }
+
+        if (valid) {
+            const shippingInfo = {
+                name: fields.lastName.value.trim() + ' ' + fields.name.value.trim(),
+                email: fields.email.value.trim(),
+                phone: fields.phone.value.trim(),
+                address: fields.address.value.trim(),
+                city: fields.city.value.trim() + ', ' + fields.district.value.trim() + ', ' + fields.ward.value.trim(),
+                note: fields.note.value.trim(),
+                shipping: "Phí vận chuyển - MIỄN PHÍ"
+            };
+            localStorage.setItem("shippingInfo", JSON.stringify(shippingInfo));
+
+            // Chuyển sang trang Payment_List
+            window.location.href = '@Url.Action("Payment_List", "Home")';
+        }
+    });
+    </script>
+</body>
+</html>
+
+
+

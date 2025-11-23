@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace DeAnWEB.Controllers
 {
-    public class OrderController : Controller
+    public class OrdersController : Controller
     {
         private MyStoreEntities db = new MyStoreEntities();
 
@@ -18,7 +18,7 @@ namespace DeAnWEB.Controllers
             return View();
         }
 
-        // GET: Order/Checkout
+        // GET: Order/DeliverLocate
         [Authorize]
         public ActionResult Checkout()
         {
@@ -46,10 +46,13 @@ namespace DeAnWEB.Controllers
                 ShippingAddress = customer.CustomerAddress, //Lấy địa chỉ mặc định từ bảng Customer
                 CustomerID = customer.CustomerID, //lấy mã khách hàng từ bảng Customer
                 Username = customer.Username, // lấy tên đăng nhập từ bảng Customer
+                Email = customer.CustomerEmail,//lấy email từ bảng Customer
+                Name = customer.CustomerName, //lấy tên khách từ bảng Customer
+                Phone = customer.CustomerPhone //lấy sđt khách từ bảng Customer
             };
             return View(model);
         }
-        //POST: Order/Checkout
+        //POST: Order/DeliverLocate
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
