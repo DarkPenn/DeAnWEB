@@ -56,7 +56,17 @@ namespace DeAnWEB.Controllers
             }
             return RedirectToAction("Index");
         }
-
+        public ActionResult BuyNow(int id, int quantity = 1)
+        {
+            var product = db.Products.Find(id);
+            if (product != null)
+            {
+                var cartService = GetCartService();
+                cartService.GetCart().AddItem(product.ProductID, product.ProductImage,
+                    product.ProductName, product.ProductPrice, quantity, product.Category.CategoryName);
+            }
+            return RedirectToAction("Checkout","Orders");
+        }
         //xóa sản phẩm khỏi giỏ
         public ActionResult RemoveFromCart(int id)
         {

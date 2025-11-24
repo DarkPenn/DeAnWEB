@@ -5,37 +5,38 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Index</h2>
+<h2 class="bg-success">Danh sách đơn hàng</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
+<p style="border-radius:8px;">
+    @Html.ActionLink("Thêm mới", "Create", null, new { @class = "btn btn-primary" })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.OrderDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TotalAmount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PaymentStatus)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PaymentMethod)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ShippingAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ShippingMethod)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customer.CustomerName)
-        </th>
-        <th></th>
-    </tr>
-
+<table class="table bg-info container-fluid">
+    <thead>
+        <tr>
+            <th class="bg-success">
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </th>
+            <th class="bg-success">
+                @Html.DisplayNameFor(model => model.TotalAmount)
+            </th>
+            <th class="bg-success">
+                @Html.DisplayNameFor(model => model.PaymentStatus)
+            </th>
+            <th class="bg-success">
+                @Html.DisplayNameFor(model => model.PaymentMethod)
+            </th>
+            <th class="bg-success">
+                @Html.DisplayNameFor(model => model.ShippingAddress)
+            </th>
+            <th class="bg-success">
+                @Html.DisplayNameFor(model => model.ShippingMethod)
+            </th>
+            <th class="bg-success">
+                @Html.DisplayNameFor(model => model.Customer.CustomerName)
+            </th>
+            <th class="bg-success">Action</th>
+        </tr>
+    </thead>
 @foreach (var item in Model) {
     <tr>
         <td>
@@ -60,9 +61,9 @@
             @Html.DisplayFor(modelItem => item.Customer.CustomerName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.OrderID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.OrderID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.OrderID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.OrderID }, new { @class = "btn btn-primary btn-sm" }) 
+            @Html.ActionLink("Details", "Details", new { id=item.OrderID }, new { @class = "btn btn-primary btn-sm" }) 
+            @Html.ActionLink("Delete", "Delete", new { id=item.OrderID }, new { @class = "btn btn-primary btn-sm" })
         </td>
     </tr>
 }

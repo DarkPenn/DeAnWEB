@@ -1,56 +1,105 @@
 ﻿@model DeAnWEB.Models.ViewModel.ProductDetailsVM
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "ProductDetails";
-    <link rel="stylesheet" type="text/css" href="~/Content/Css/CustomerDetailProduct.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Css/DetailProduct.css" />
 
 }
 
-<div class="container-fluid pro">
-    <div class="div-horizontal">
+<div class="allpage">
+    <div class="product-page">
         @*Khối bên trái*@
-        <div class="col-md-3 pro-section">
-            <img style="width:100%;height:auto;" src="@Model.product.ProductImage" />
-        </div>
-        @*Khối giữa*@
-        <div class="col-md-5 pro-section">
-            @*Phần thông tin sản phẩm*@
-            <div>
-                <h4><strong>@Html.DisplayFor(model => model.product.ProductName) </strong></h4>
-                <p class="pro-sale">Đã bán:&nbsp; @Model.product.OrderDetails.Count</p>
-                <p class="pro-price">@Model.product.ProductPrice.ToString("C")</p>
-                <p>Tủ sách:&nbsp;@Model.product.Category.CategoryName</p>
-                <hr />
-                <h5><strong>Mô Tả</strong></h5>
-                <p>@Model.product.ProductDescription</p>
+        <div class="gallery">
+            <div class="main-image">
+                <img style="width:100%;height:auto;" src="@Model.product.ProductImage" />
             </div>
-            @*Khối RelatedProduct*@
-            <div>@Html.Partial("_PVRelatedProduct", Model)</div>
         </div>
         @*Khối bên phải*@
-        <div class="col-md-3 pro-section">
-            <div class="mb-3">
-                @*Phần tạm tính*@
-                @using (Html.BeginForm("ProductDetails", "Home", FormMethod.Get))
-                {
-                    <h4><strong>Số lượng</strong></h4>
-                    <p>
-                        @Html.TextBoxFor(model => model.quantity, new
-                 { @class = "form-control", @type = "number", @min = 1 })
+        <div class="product-info">
+            @*Phần thông tin sản phẩm*@
+            <div class="brand">@Model.product.Category.CategoryName</div>
+            <h4><strong>@Html.DisplayFor(model => model.product.ProductName) </strong></h4>
+            <div class="price">
+                <p class="pro-price">@Model.product.ProductPrice.ToString("C")</p>
+                <hr />
+                <p class="pro-sale">Đã bán:&nbsp; @Model.product.OrderDetails.Count</p>
+            </div>
+            @*Phần tạm tính*@
+            @using (Html.BeginForm("ProductDetails", "Homes", FormMethod.Get))
+            {
+                <h4><strong>Số lượng</strong></h4>
+                <p>
+                    @Html.TextBoxFor(model => model.quantity, new
+                            { @class = "form-control", @type = "number", @min = 1 })
                 </p>
 
                 <h4><strong>Tạm tính</strong></h4>
                 <p>$@Model.estimatedValue.ToString("N0")</p>
 
                 <p>
+                    @Html.ActionLink("Mua ngay", "BuyNow", "Carts",
+                            new { id = Model.product.ProductID, quantity = Model.quantity },
+                            new { @class = "btn btn-dark" })
                     @Html.ActionLink("Thêm vào giỏ hàng", "AddToCart", "Carts",
-                 new { id = Model.product.ProductID, quantity = Model.quantity },
-                 new { @class = "btn btn-info" })
-            </p>
-        }
-                <hr />
+                            new { id = Model.product.ProductID, quantity = Model.quantity },
+                            new { @class = "btn btn-light", style = "border:1px solid black;" })
+                </p>
+            }
+            <div class="details">
+                <span>
+                    🚚Miễn phí giao hàng đơn từ 699k Xem chi tiết. <br />
+                    ↩️Đổi trả miễn phí đến 30 ngày Xem chi tiết. <br />
+                    o%Trả góp 0% lãi suất từ 3.000.000 VNĐ. <br />
+                    💳Thanh toán trực tuyến nhanh chóng và an toàn.<br />
+                    ✔️Sản phẩm chính hãng 100%..<br />
+                </span>
+            </div>
+            <br />
+        </div>
+        @*Khối RelatedProduct*@
+        <div>@Html.Partial("_PVRelatedProduct", Model)</div>
+
+        <div class="product-details">
+            <div class="details-left">
+                <table>
+                    <tr><th>Chiều cao đế</th><td>Từ 2 cm - 4 cm</td></tr>
+                    <tr><th>Họa tiết đế</th><td>Đế đinh TF</td></tr>
+                    <tr><th>Chất liệu thân giày</th><td>Tổng hợp, Cao su, EVA</td></tr>
+                    <tr><th>Bề mặt sử dụng</th><td>Sân cỏ nhân tạo</td></tr>
+                    <tr><th>Dịp sử dụng</th><td>Thi đấu</td></tr>
+                    <tr><th>Môn thể thao</th><td>Bóng đá</td></tr>
+                    <tr><th>Công nghệ</th><td>EVA Midsole</td></tr>
+                    <tr><th>Tính năng nổi bật</th><td>Bám bóng tốt, Công nghệ giảm chấn, Đẩy lực - Tăng tốc</td></tr>
+                    <tr><th>Loại dây giày</th><td>Có</td></tr>
+                    <tr><th>Cổ</th><td>Cổ thấp</td></tr>
+                    <tr><th>Kiểu dáng</th><td>Vừa vặn (Regular Fit)</td></tr>
+                </table>
+            </div>
+
+            <div class="details-right">
+                <h3>@Model.product.ProductName</h3>
+                <p>@Model.product.ProductDescription</p>
             </div>
         </div>
         @*Khối TopProduct*@
         <div>@Html.Partial("_PVTopProduct", Model)</div>
     </div>
 </div>
+<!-- POPUP Thêm vào giỏ -->
+<div id="cartPopup" class="popup-overlay">
+    <div class="popup-content">
+        <h3>✅ Sản phẩm đã thêm vào giỏ!</h3>
+        <button onclick="closePopup()">Tiếp tục mua sắm</button>
+        <button onclick="goToCart()">Xem giỏ hàng</button>
+    </div>
+</div>
+<script>
+    //  Hiện popup
+    function AddToCart() {
+        document.getElementById("cartPopup").style.display = "flex";
+    }
+    // Tắt POPUP
+    function closePopup() {
+        document.getElementById("cartPopup").style.display = "none";
+    }
+</script>

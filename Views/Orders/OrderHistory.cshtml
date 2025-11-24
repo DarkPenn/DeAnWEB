@@ -32,20 +32,23 @@
             }
             <table>
                 <thead>
-                    <tr>
-                        <th>Mã đơn hàng</th>
-                        <th>Ngày đặt hàng</th>
-                        <th>Phương thức thanh toán</th>
-                        <th>Trạng thái</th>
-                        <th>Tổng cộng</th>
-                        <th>Hành động</th>
+                    <tr class="col-md-12">
+                        <th class="col-md-3">Mã đơn hàng</th>
+                        <th class="col-md-2">Ngày đặt hàng</th>
+                        <th class="col-md-2">Phương thức thanh toán</th>
+                        <th class="col-md-2">Trạng thái</th>
+                        <th class="col-md-2">Tổng cộng</th>
+                        <th class="col-md-1">Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
                     @if (Model == null || !Model.Any())
                     {
                     <tr>
-                        <td colspan="5" style="text-align: center; color: mediumblue; font-weight:700">Không có đơn hàng</td>
+                        <td colspan="8" style="text-align: center; color: mediumblue; font-weight:700">Không có đơn hàng</td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" style="text-align: center;"><a href="@Url.Action("Index","Homes")" class="btn btn-info">BẮT ĐẦU MUA SẮM</a></td>
                     </tr>
                     }
                     else
@@ -58,7 +61,7 @@
                     <td>@order.PaymentMethod</td>
                     <td>@order.PaymentStatus</td>
                     <td>@order.TotalAmount</td>
-                    <td>@Html.ActionLink("Chi Tiết", "OrderSuccess","Orders", new { id = order.OrderID }, new { style="background-color:dogerblue; border-radius:8px;" })</td>
+                    <td colspan="1">@Html.ActionLink("Chi Tiết", "OrderSuccess","Orders", new { id = order.OrderID }, new { @class = "btn btn-info" })</td>
 
                 </tr>
                         }
@@ -66,10 +69,7 @@
                 </tbody>
             </table>
 
-            <div class="empty-state">
-                <p>Bạn chưa đặt đơn hàng nào với chúng tôi. Khi bạn đặt hàng, chúng sẽ hiển thị ở đây.</p>
-                <a href="@Url.Action("Index","Homes")" class="btn">BẮT ĐẦU MUA SẮM</a>
-            </div>
+           
         </div>
     </div>
 

@@ -19,6 +19,48 @@ namespace DeAnWEB.Controllers
             return View();
         }
         private MyStoreEntities db = new MyStoreEntities();
+       
+        public ActionResult ProfileInfo()
+        {
+            if (!Request.IsAuthenticated)
+                return RedirectToAction("Login","Accounts");
+
+            var user = db.Users.SingleOrDefault(u => u.Username == User.Identity.Name);
+            var customer = db.Customers.SingleOrDefault(c => c.Username == user.Username);
+
+            var model = new ProfileVM
+            {
+                Username = user.Username,
+                Role = user.UserRole,
+
+                CustomerName = customer.CustomerName,
+                CustomerEmail = customer.CustomerEmail,
+                CustomerPhone = customer.CustomerPhone,
+                CustomerAddress = customer.CustomerAddress,
+                CustomerID = customer.CustomerID
+            };
+
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult UpdateProfile(ProfileVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var customer = db.Customers.Find(model.CustomerID);
+
+                customer.CustomerName = model.CustomerName;
+                customer.CustomerPhone = model.CustomerPhone;
+                customer.CustomerEmail = model.CustomerEmail;
+                customer.CustomerAddress = model.CustomerAddress;
+
+                db.SaveChanges();
+
+                return RedirectToAction("ProfileInfo");
+            }
+
+            return View(model);
+        }
 
         // GET: Account/Register
         public ActionResult Register()
@@ -117,7 +159,14 @@ namespace DeAnWEB.Controllers
         //GET: Account/LogOut
         public ActionResult Logout()
         {
+            // Xóa session
             Session.Clear();
+            Session.Abandon();
+
+            // Xóa cookie xác thực
+            FormsAuthentication.SignOut();
+
+            // Chuyển về trang đăng nhập
             return RedirectToAction("Login", "Accounts");
         }
 
@@ -129,22 +178,33 @@ namespace DeAnWEB.Controllers
         //POST: Accout/ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
-        public ActionResult ChangePassword(RegisterVM model)
+        public ActionResult ChangePassword(ChangePasswordVM model)
         {
-            if (ModelState.IsValid)
-            {
-                var user = db.Users.SingleOrDefault(u => u.Username == User.Identity.Name);
-                if (user == null)
-                {
-                    return RedirectToAction("Login", "Accounts");
-                }
-                user.Password = model.Password;//nên mã hóa trước khi lưu
-                db.SaveChanges();
+            if (!ModelState.IsValid)
+                return View(model);
 
-                return RedirectToAction("ProfileInfo");
+            // Lấy user từ username nhập
+            var user = db.Users.SingleOrDefault(u => u.Username == model.Username);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Tên đăng nhập không tồn tại.");
+                return View(model);
             }
-            return View(model);
+
+            // Kiểm tra mật khẩu cũ
+            if (user.Password != model.OldPassword)
+            {
+                ModelState.AddModelError("", "Mật khẩu cũ không đúng");
+                return View(model);
+            }
+
+            // Cập nhật mật khẩu mới
+            user.Password = model.NewPassword;
+            db.SaveChanges();
+
+            ViewBag.Message = "Đổi mật khẩu thành công!";
+            return RedirectToAction("Login","Accounts");
         }
+        
     }
 }

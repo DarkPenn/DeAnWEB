@@ -128,8 +128,43 @@ header {
         font-weight: 600;
     }
 
+@media (max-width: 980px) {
+    .container {
+        max-width:80%;
+        margin: 20px;
+        padding: 15px;
+    }
+
+    .order-info strong, .customer-info strong {
+        display: block;
+        margin-bottom: 3px;
+    }
+
+    #order-status {
+        display: block;
+        margin-top: 5px;
+    }
+}
 @media (max-width: 600px) {
     .container {
+        max-width:80%;
+        margin: 20px;
+        padding: 15px;
+    }
+
+    .order-info strong, .customer-info strong {
+        display: block;
+        margin-bottom: 3px;
+    }
+
+    #order-status {
+        display: block;
+        margin-top: 5px;
+    }
+}
+@media (max-width: 400px) {
+    .container {
+        max-width: 87%;
         margin: 20px;
         padding: 15px;
     }

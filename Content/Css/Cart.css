@@ -59,7 +59,6 @@ body {
 }
 
 .continue-shopping-btn {
-    background: #6fdd00;
     color: white;
     border: none;
     padding: 15px 40px;
@@ -258,7 +257,6 @@ body {
 /* Checkout Button */
 .checkout-btn {
     width: 100%;
-    background: #fb6e2e;
     color: white;
     border: none;
     padding: 15px;

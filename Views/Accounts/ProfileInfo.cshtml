@@ -1,0 +1,125 @@
+﻿@model DeAnWEB.Models.ViewModel.ProfileVM
+
+@{
+    ViewBag.Title = "Profile";
+}
+@section styles {
+    <link rel="stylesheet" href="~/Content/Css/OrderDetail.css" />
+}
+<script>
+    function enableNameEdit() {
+        document.getElementById("CustomerName").removeAttribute("readonly");
+        document.getElementById("newNameGroup").style.display = "block";
+    }
+
+    function updateName() {
+        var newName = document.getElementById("newName").value;
+        if (newName) {
+            document.getElementById("CustomerName").value = newName;
+        }
+    }
+
+    function enablePhoneEdit() {
+        document.getElementById("CustomerPhone").removeAttribute("readonly");
+        document.getElementById("newPhoneGroup").style.display = "block";
+    }
+
+    function updatePhone() {
+        var newPhone = document.getElementById("newPhone").value;
+        if (newPhone) {
+            document.getElementById("CustomerPhone").value = newPhone;
+        }
+    }
+
+    function enableEmailEdit() {
+        document.getElementById("CustomerEmail").removeAttribute("readonly");
+        document.getElementById("newEmailGroup").style.display = "block";
+    }
+
+    function updateEmail() {
+        var newEmail = document.getElementById("newEmail").value;
+        if (newEmail) {
+            document.getElementById("CustomerEmail").value = newEmail;
+        }
+    }
+
+    function enableAddressEdit() {
+        document.getElementById("CustomerAddress").removeAttribute("readonly");
+        document.getElementById("newAddressGroup").style.display = "block";
+    }
+
+    function updateShippingAddress() {
+        var newAddress = document.getElementById("newShippingAddress").value;
+        if (newAddress) {
+            document.getElementById("CustomerAddress").value = newAddress;
+        }
+    }
+</script>
+
+<div class="container">
+    <h1>Thông tin tài khoản</h1>
+    <a href="@Url.Action("Index","Homes")" class="btn-back">← Quay về trang chủ</a>
+    <h3>Thông tin chi tiết</h3>
+    @using (Html.BeginForm("UpdateProfile", "Accounts", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.CustomerID)
+        <div class="customer-info">
+            <p>
+                <strong>Họ tên khách hàng: </strong>
+                <input type="text" id="CustomerName" name="CustomerName" class="form-control"
+                       value="@Model.CustomerName" readonly />
+
+                <button type="button" class="btn btn-link" onclick="enableNameEdit()">Chỉnh sửa</button>
+            </p>
+            <div id="newNameGroup" style="display:none;">
+                <label>Họ tên mới</label>
+                <input type="text" id="newName" class="form-control" oninput="updateName()" />
+            </div>
+
+            <p>
+                <strong>Số điện thoại: </strong>
+                <input type="text" id="CustomerPhone" name="CustomerPhone" class="form-control"
+                       value="@Model.CustomerPhone" readonly />
+
+                <button type="button" class="btn btn-link" onclick="enablePhoneEdit()">Chỉnh sửa</button>
+            </p>       
+             <div id="newPhoneGroup" style="display:none;">
+                 <label>Số điện thoại mới</label>
+                 <input type="text" id="newPhone" class="form-control" oninput="updatePhone()" />
+             </div>
+
+            <p>
+                <strong>Email: </strong>
+                <input type="text" id="CustomerEmail" name="CustomerEmail" class="form-control"
+                       value="@Model.CustomerEmail" readonly />
+
+                <button type="button" class="btn btn-link" onclick="enableEmailEdit()">Chỉnh sửa</button>
+            </p>
+             <div id="newEmailGroup" style="display:none;">
+                 <label>Email mới</label>
+                 <input type="text" id="newEmail" class="form-control" oninput="updateEmail()" />
+             </div>
+
+            <p>
+                <strong>Địa chỉ: </strong>
+                <input type="text" id="CustomerAddress" name="CustomerAddress" class="form-control"
+                       value="@Model.CustomerAddress" readonly />
+
+                <button type="button" class="btn btn-link" onclick="enableAddressEdit()">Chỉnh sửa</button>
+            </p>
+
+            <div id="newAddressGroup" style="display:none;">
+                <label>Địa chỉ mới</label>
+                <input type="text" id="newShippingAddress" class="form-control" oninput="updateShippingAddress()" />
+            </div>
+
+        </div>
+
+        <button type="submit" style="display:none;" class="btn btn-success mt-3">Lưu thay đổi</button>
+    }
+
+    <div>
+        <a href="@Url.Action("OrderHistory","Orders")" class="btn btn-info">Lịch sử giao dịch</a>
+    </div>
+
+</div>

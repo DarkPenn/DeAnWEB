@@ -2,6 +2,21 @@
 @{
     Layout = null;
 }
+@{ //lấy thông tin giỏ hàng
+    var cart = Session["Cart"] as DeAnWEB.Models.ViewModel.Cart;
+    //tạo đối tượng ViewBag.pmmodel dạng PersonalMenuVM và lưu trong ViewBag
+    //Khời tạo giá trị dựa trên thông tin tài khoản đăng nhập
+    ViewBag.pmmodel = new DeAnWEB.Models.ViewModel.PersonalMenuVM
+    {
+        IsLoggedIn = User.Identity.IsAuthenticated,
+        Username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty
+    };
+    //nếu giờ hàng không rỗng thì gắn số lượng mặt hàng trong giỏ cho CartCount
+    if(cart != null && cart.Items.Any())
+    {
+        ViewBag.pmmodel.CartCount = cart.Items.Count();
+    }
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +28,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <script src="/Scripts/MasterLayout.js" defer></script>
+    @Styles.Render("~/Content/Css")
+    @Scripts.Render("~/bundles/modernizr")
     @RenderSection("styles", required: false)   <!-- Cho phép trang con thêm CSS -->
     @RenderSection("Scripts", required: false)
 </head>
@@ -50,16 +67,47 @@
             @*Search Box*@
             @Html.Partial("_PVSearchBox", ViewBag.SearchTerm as string ?? "")
 
-
-            <div class="icons">
-                <a href="@Url.Action("Login","Accounts")" style="color:white;"><span class="material-symbols-outlined">person</span> </a>
-                <a href="@Url.Action("Index","Carts")" style="color:white;"><span class="material-symbols-outlined"> shopping_bag</span> </a>
-                <a href="@Url.Action("OrderHistory","Orders")" style="color:white;"><span class="material-symbols-outlined base">inventory_2</span></a>
-                <img class="flag" src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag">
-                <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
-                <br />
+            
+        <div class="icons">
+            <div class="dropdown">
+                <div style="position:relative">
+                    <a href="javascript:void(0)" id="account-name">
+                        @if (ViewBag.pmmodel.IsLoggedIn)
+                        {
+                            <text>👤 Hello, </text> @ViewBag.pmmodel.Username
+                        }
+                        else
+                        {
+                            <text>👤</text>
+                        }
+                    </a>
+                    <div class="dropdown-content">
+                        @if (ViewBag.pmmodel.IsLoggedIn)
+                        {
+                            <a href="@Url.Action("ProfileInfo","Accounts")">Thông tin tài khoản</a>
+                            <a href="@Url.Action("OrderHistory","Orders")">Lịch sử mua hàng</a>
+                            <a href="@Url.Action("Logout","Accounts")">Đăng xuất</a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Register","Accounts")">Đăng ký</a>
+                            <a href="@Url.Action("Login","Accounts")">Đăng nhập</a>
+                        }
+                    </div>
+                </div>
             </div>
-
+            <div>
+                <div class="cart">
+                    <a href="@Url.Action("Index","Carts")">
+                        🛒
+                        (<span  id="cart-count">@ViewBag.pmmodel.CartCount</span>)
+                    </a>
+                </div>
+            </div>
+            <a href="@Url.Action("OrderHistory","Orders")" style="color:white;">🧾</a>
+            <img class="flag" src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag">
+            <br />
+        </div>
         </div>
         <!-- Bottom info bar -->
         <div class="info-bar">
@@ -86,33 +134,33 @@
             <div class="footer-column">
                 <h4>VỀ SUPERSORTS</h4>
                 <ul>
-                    <li><a href="#">Giới thiệu</a></li>
-                    <li><a href="#">Hệ thống cửa hàng</a></li>
-                    <li><a href="#">Thông tin liên hệ</a></li>
-                    <li><a href="#">Các điều khoản và điều kiện</a></li>
-                    <li><a href="#">Hợp tác cùng chúng tôi</a></li>
+                    <li>Giới thiệu</li>
+                    <li>Hệ thống cửa hàng</li>
+                    <li>Thông tin liên hệ</li>
+                    <li>Các điều khoản và điều kiện</li>
+                    <li>Hợp tác cùng chúng tôi</li>
                 </ul>
             </div>
             <!-- CỘT 3 -->
             <div class="footer-column">
                 <h4>HỖ TRỢ KHÁCH HÀNG</h4>
                 <ul>
-                    <li><a href="#">Chính sách giao hàng</a></li>
-                    <li><a href="#">Chính sách đổi trả hàng - Bảo hành</a></li>
-                    <li><a href="#">Chính sách trả góp</a></li>
-                    <li><a href="#">Chính sách bảo mật</a></li>
-                    <li><a href="#">Hỗ trợ & giải đáp thắc mắc</a></li>
-                    <li><a href="#">Hướng dẫn mua hàng</a></li>
-                    <li><a href="#">Hướng dẫn chọn size</a></li>
-                    <li><a href="#">Tra cứu đơn hàng</a></li>
+                    <li>Chính sách giao hàng</li>
+                    <li>Chính sách đổi trả hàng - Bảo hành</li>
+                    <li>Chính sách trả góp</li>
+                    <li>Chính sách bảo mật</li>
+                    <li>Hỗ trợ & giải đáp thắc mắc</li>
+                    <li>Hướng dẫn mua hàng</li>
+                    <li>Hướng dẫn chọn size</li>
+                    <li>Tra cứu đơn hàng</li>
                 </ul>
             </div>
             <!-- CỘT 4 -->
             <div class="footer-column">
                 <h4>GROUP BUSINESS</h4>
                 <ul>
-                    <li><a href="#">Nguyễn Kim</a></li>
-                    <li><a href="#">Big C</a></li>
+                    <li>Nguyễn Kim</li>
+                    <li>Big C</li>
                 </ul>
             </div>
             <!-- CỘT 5 -->
@@ -120,7 +168,7 @@
                 <h4>PHƯƠNG THỨC THANH TOÁN</h4>
                 <div class="certifications">
                     <a href="http://online.gov.vn/Home/WebDetails/72039"><img src="https://cdn.shopify.com/s/files/1/0670/3484/1376/files/image_41_487e5803-f4d0-489f-ac14-7b301b6cbb92.png?v=1683197427" alt="Bộ Công Thương"> </a>
-                    <a href="https://www.dmca.com/Protection/Status.aspx?ID=82a9b6db-8bb5-4f59-b809-e909e4e33dda&refurl=https://supersports.com.vn/"><img src="https://images.dmca.com/Badges/DMCA_logo-grn-btn100w.png?ID=82a9b6db-8bb5-4f59-b809-e909e4e33dda" alt="DMCA Protected"></a>
+                    <img src="https://images.dmca.com/Badges/DMCA_logo-grn-btn100w.png?ID=82a9b6db-8bb5-4f59-b809-e909e4e33dda" alt="DMCA Protected">
                 </div>
             </div>
         </div>

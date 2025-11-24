@@ -33,11 +33,17 @@ namespace DeAnWEB.Areas.Admin.Controllers
             }
             //tìm kiếm theo giá tối thiểu
             if (MinPrice.HasValue)
+            {
+                model.MinPrice = MinPrice;
                 products = products.Where(p => p.ProductPrice >= MinPrice.Value);
+            }
             //tìm kiếm theo giá tối đa
             if (MaxPrice.HasValue)
+            {
+                model.MaxPrice = MaxPrice;
                 products = products.Where(p => p.ProductPrice <= MaxPrice.Value);
-            //Sắp xếp theo lựa chọn người dùng
+            }
+                //Sắp xếp theo lựa chọn người dùng
             switch (SortOrder)
             {
                 case "name_asc":

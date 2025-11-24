@@ -46,6 +46,7 @@ namespace DeAnWEB.Controllers
         // GET: HOME/ProductDetails/5
         public ActionResult ProductDetails(int? id, int? quantity, int? page)
         {
+            db.Database.CommandTimeout = 180;
             if (id == null)
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             Product pro = db.Products.Find(id);

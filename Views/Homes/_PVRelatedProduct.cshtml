@@ -1,27 +1,27 @@
 ﻿@model DeAnWEB.Models.ViewModel.ProductDetailsVM
 @using PagedList.Mvc;
-<link rel="stylesheet" type="text/css" href="~/Content/Css/CustomerDetailProduct.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/Css/Home.css" />
 
 <!--Hiển thị danh sách sản phẩm-->
 @if (Model.RelatedProducts != null && Model.RelatedProducts.Any())
 {
     <section class="container-fluid featureProd">
         <h4 style="font-weight:bold;">Sản phẩm tương tự</h4>
-        <ul class="feature-container">
+        <div class="feature-container">
             @foreach (var product in Model.RelatedProducts)
             {
-                <li class="fproduct-item">
+                <div class="fproduct-item">
                     <div>
                         <a href="@Url.Action("ProductDetails", "Home", new {id=product.ProductID})">
                             <img src="@Html.DisplayFor(modelItem => product.ProductImage)" />
                         </a>
                     </div>
                     <div>
-                        <h5>@Html.DisplayFor(modelItem => product.ProductName) </h5>
-                        <p class="prodSale">@Html.DisplayFor(modelItem => product.ProductPrice) </p>
+                        <h5 style="padding:5px;">@Html.DisplayFor(modelItem => product.ProductName) </h5>
+                        <p class="prodSale">@Html.DisplayFor(modelItem => product.ProductPrice) VNĐ</p>
                     </div>
-                </li>
+                </div>
             }
-        </ul>
+        </div>
     </section>
 }

@@ -41,9 +41,12 @@
 
     <main class="container" id="cartMainContent">
         <h2>Giỏ hàng</h2>
-        <div class="empty-cart">
+        
             @if (!Model.Items.Any())
-            {<h2 class="empty-cart-title" style="background-color:white;">Bạn chưa có sản phẩm nào trong giỏ 🛒</h2> }
+            {
+                <div class="empty-cart">
+                    <h2 class="empty-cart-title" style="background-color:white;">Bạn chưa có sản phẩm nào trong giỏ 🛒</h2> 
+                </div>}
             else
             {
                 <div class="cart-layout">
@@ -121,7 +124,7 @@
 
                             <p class="note">*Phí ship và coupon áp dụng tại trang thanh toán</p>
 
-                            <button class="checkout-btn">
+                            <button class="btn btn-danger checkout-btn">
                                 @Html.ActionLink("Thanh Toán", "Checkout", "Orders", null, new { @class = "btn btn-danger cart-button" })
                             </button>
 
@@ -138,9 +141,8 @@
                     </div>
                 </div>
             }
-        </div>
         <div style="text-align: center; margin-top: 30px;">
-            <button class="continue-shopping-btn">
+            <button class="btn btn-warning continue-shopping-btn">
                 <div class="col-md-12">@Html.ActionLink("Tiếp Tục Mua Hàng", "Index", "Homes", null, new { @class = "btn btn-warning cart-button" }) </div>
             </button>
         </div>
