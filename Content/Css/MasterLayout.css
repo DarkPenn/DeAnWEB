@@ -50,6 +50,8 @@ a {
 /* = HEADER = */
 header {
     width: 100%;
+    justify-items: center;
+    background: #001e36;
 }
 
 /* --- Top green bar --- */
@@ -69,6 +71,7 @@ header {
 }
 
 .topbar-item {
+    max-width:1400px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -126,6 +129,7 @@ header {
 
 /* --- Main header --- */
 .main-header {
+    max-width:1400px;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -231,9 +235,11 @@ header {
     border-top: 1px solid #ddd;
     padding: 20px 20px;
     box-sizing: border-box;
+    justify-items:center;
 }
 
 .footer-container {
+    max-width:1400px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;

@@ -47,8 +47,8 @@
                             <td><img src="@item.Product.ProductImage" alt="@item.Product.ProductName" style="max-height:80px;" /></td>
                             <td class="col-md-3">@item.Product.ProductName</td>
                             <td>@item.Quantity</td>
-                            <td>@item.UnitPrice</td>
-                            <td>@item.TotalPrice</td>
+                            <td>@item.UnitPrice.ToString("N0") VNĐ</td>
+                            <td>@item.TotalPrice.ToString("N0") VNĐ</td>
                         </tr>
                     }
                 </tbody>

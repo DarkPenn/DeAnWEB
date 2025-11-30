@@ -96,7 +96,7 @@
                     <!-- SUBMIT BUTTON -->
                     <div class="action-buttons">
                         <a href="@Url.Action("Index", "Carts")" class="back-link">&lt; Quay lại giỏ hàng</a>
-                        <button type="submit" class="pay-button">Tiếp tục thanh toán ></button>
+                        <button type="submit" class="pay-button">Xác nhận thanh toán ></button>
                     </div>
                 </section>
 
@@ -124,7 +124,7 @@
                         <span class="amount">@Model.TotalAmount.ToString("N0") ₫</span>
                     </div>
                     <div class="mb-3">
-                        @Html.Label("Phương thức giao hàng", new { @class = "col-form-label col-md-2" })
+                        @Html.Label("Phương thức giao hàng", new { @class = "col-form-label col-md-6" })
                         <div class="col-md-10">
                             @Html.RadioButtonFor(m => m.ShippingMethod, "Giao hàng nhanh") Giao hàng nhanh <br />
                             @Html.RadioButtonFor(m => m.ShippingMethod, "Giao hàng tiết kiệm") Giao hàng tiết kiệm

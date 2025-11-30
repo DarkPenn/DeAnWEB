@@ -145,31 +145,31 @@ namespace DeAnWEB.Areas.Admin.Controllers
             return View(product);
         }
 
-        // GET: Admin/Products/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Product product = db.Products.Find(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            return View(product);
-        }
+        //// GET: Admin/Products/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Product product = db.Products.Find(id);
+        //    if (product == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(product);
+        //}
 
-        // POST: Admin/Products/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Product product = db.Products.Find(id);
-            db.Products.Remove(product);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// POST: Admin/Products/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Product product = db.Products.Find(id);
+        //    db.Products.Remove(product);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

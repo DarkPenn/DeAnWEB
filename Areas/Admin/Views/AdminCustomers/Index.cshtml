@@ -51,9 +51,6 @@
 </head>
 <h2 class="bg-success">Danh sách tài khoản</h2>
 
-<p style="border-radius:8px;">
-    @Html.ActionLink("Thêm mới", "Create", null, new { @class = "btn btn-primary" })
-</p>
 <table class="table bg-info container-fluid">
     <thead>
         <tr>
@@ -68,10 +65,7 @@
             </th>
             <th class="bg-success">
                 @Html.DisplayNameFor(model => model.CustomerAddress)
-            </th>
-            <th class="bg-success">
-                @Html.DisplayNameFor(model => model.User.Password)
-            </th>
+            </th>            
             <th class="bg-success">Action</th>
         </tr>
     </thead>
@@ -90,12 +84,7 @@
             @Html.DisplayFor(modelItem => item.CustomerAddress)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.User.Password)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CustomerID }, new { @class = "btn btn-primary btn-sm" }) 
             @Html.ActionLink("Details", "Details", new { id=item.CustomerID }, new { @class = "btn btn-primary btn-sm" }) 
-            @Html.ActionLink("Delete", "Delete", new { id=item.CustomerID }, new { @class = "btn btn-primary btn-sm" })
         </td>
     </tr>
 }

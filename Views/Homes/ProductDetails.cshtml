@@ -30,11 +30,11 @@
                 <h4><strong>Số lượng</strong></h4>
                 <p>
                     @Html.TextBoxFor(model => model.quantity, new
-                            { @class = "form-control", @type = "number", @min = 1 })
+                            { @class = "form-control", @type = "number", @min = 1, @max = 50 })
                 </p>
 
                 <h4><strong>Tạm tính</strong></h4>
-                <p>$@Model.estimatedValue.ToString("N0")</p>
+                <p>@Model.estimatedValue.ToString("N0") VNĐ</p>
 
                 <p>
                     @Html.ActionLink("Mua ngay", "BuyNow", "Carts",
@@ -81,25 +81,6 @@
                 <p>@Model.product.ProductDescription</p>
             </div>
         </div>
-        @*Khối TopProduct*@
-        <div>@Html.Partial("_PVTopProduct", Model)</div>
     </div>
 </div>
-<!-- POPUP Thêm vào giỏ -->
-<div id="cartPopup" class="popup-overlay">
-    <div class="popup-content">
-        <h3>✅ Sản phẩm đã thêm vào giỏ!</h3>
-        <button onclick="closePopup()">Tiếp tục mua sắm</button>
-        <button onclick="goToCart()">Xem giỏ hàng</button>
-    </div>
-</div>
-<script>
-    //  Hiện popup
-    function AddToCart() {
-        document.getElementById("cartPopup").style.display = "flex";
-    }
-    // Tắt POPUP
-    function closePopup() {
-        document.getElementById("cartPopup").style.display = "none";
-    }
-</script>
+

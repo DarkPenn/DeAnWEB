@@ -160,6 +160,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MyStoreModel.Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MyStoreModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyStoreModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MyStoreModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -448,6 +453,7 @@
     <Content Include="Views\Accounts\ProfileInfo.cshtml" />
     <Content Include="Views\Accounts\Edit.cshtml" />
     <Content Include="Views\Accounts\ChangePassword.cshtml" />
+    <Content Include="Views\Orders\OrderDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,7 +17,7 @@
                     </div>
                     <div>
                         <p class="prodPrice">
-                            @Html.DisplayFor(modelItem => product.ProductPrice)₫
+                             @product.ProductPrice.ToString("N0")₫
                         </p>
                         <p class="prodName">
                             @Html.DisplayFor(modelItem => product.ProductName)

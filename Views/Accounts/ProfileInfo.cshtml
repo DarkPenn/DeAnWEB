@@ -7,6 +7,26 @@
     <link rel="stylesheet" href="~/Content/Css/OrderDetail.css" />
 }
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var input = document.querySelector('input[name="NewCustomerPhone"]');
+        input.value = "0"; // mặc định
+
+        input.addEventListener('keydown', function (e) {
+            if ((this.selectionStart === 0) && (e.key === 'Backspace' || e.key === 'Delete')) {
+                e.preventDefault();
+            }
+        });
+
+        input.addEventListener('input', function () {
+            if (!this.value.startsWith('0')) {
+                this.value = '0' + this.value.replace(/^0+/, '');
+            }
+            // Giữ tối đa 10 ký tự
+            this.value = this.value.slice(0, 10);
+            // Chỉ cho phép số
+            this.value = '0' + this.value.slice(1).replace(/\D/g, '');
+        });
+    });
     function enableNameEdit() {
         document.getElementById("CustomerName").removeAttribute("readonly");
         document.getElementById("newNameGroup").style.display = "block";
@@ -66,43 +86,43 @@
         <div class="customer-info">
             <p>
                 <strong>Họ tên khách hàng: </strong>
-                <input type="text" id="CustomerName" name="CustomerName" class="form-control"
+                <input type="text" id="CustomerName" name="CustomerName" class="form-control" maxlength="30"
                        value="@Model.CustomerName" readonly />
 
                 <button type="button" class="btn btn-link" onclick="enableNameEdit()">Chỉnh sửa</button>
             </p>
             <div id="newNameGroup" style="display:none;">
                 <label>Họ tên mới</label>
-                <input type="text" id="newName" class="form-control" oninput="updateName()" />
+                <input type="text" id="newName" class="form-control" maxlength="30" oninput="updateName()" />
             </div>
 
             <p>
                 <strong>Số điện thoại: </strong>
-                <input type="text" id="CustomerPhone" name="CustomerPhone" class="form-control"
+                <input type="text" id="CustomerPhone" name="CustomerPhone" class="form-control" maxlength="10"
                        value="@Model.CustomerPhone" readonly />
 
                 <button type="button" class="btn btn-link" onclick="enablePhoneEdit()">Chỉnh sửa</button>
             </p>       
              <div id="newPhoneGroup" style="display:none;">
                  <label>Số điện thoại mới</label>
-                 <input type="text" id="newPhone" class="form-control" oninput="updatePhone()" />
+                 <input type="text" id="newPhone" name="NewCustomerPhone" class="form-control" maxlength="10" oninput="updatePhone()" />
              </div>
 
             <p>
                 <strong>Email: </strong>
-                <input type="text" id="CustomerEmail" name="CustomerEmail" class="form-control"
+                <input type="text" id="CustomerEmail" name="CustomerEmail" class="form-control" maxlength="40"
                        value="@Model.CustomerEmail" readonly />
 
                 <button type="button" class="btn btn-link" onclick="enableEmailEdit()">Chỉnh sửa</button>
             </p>
              <div id="newEmailGroup" style="display:none;">
                  <label>Email mới</label>
-                 <input type="text" id="newEmail" class="form-control" oninput="updateEmail()" />
+                 <input type="text" id="newEmail" class="form-control" maxlength="40" oninput="updateEmail()" />
              </div>
 
             <p>
                 <strong>Địa chỉ: </strong>
-                <input type="text" id="CustomerAddress" name="CustomerAddress" class="form-control"
+                <input type="text" id="CustomerAddress" name="CustomerAddress" class="form-control" maxlength="100"
                        value="@Model.CustomerAddress" readonly />
 
                 <button type="button" class="btn btn-link" onclick="enableAddressEdit()">Chỉnh sửa</button>
@@ -110,12 +130,12 @@
 
             <div id="newAddressGroup" style="display:none;">
                 <label>Địa chỉ mới</label>
-                <input type="text" id="newShippingAddress" class="form-control" oninput="updateShippingAddress()" />
+                <input type="text" id="newShippingAddress" class="form-control" maxlength="100" oninput="updateShippingAddress()" />
             </div>
 
         </div>
 
-        <button type="submit" style="display:none;" class="btn btn-success mt-3">Lưu thay đổi</button>
+        <button type="submit" class="btn btn-success mt-3">Lưu thay đổi</button>
     }
 
     <div>

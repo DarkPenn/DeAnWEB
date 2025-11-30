@@ -93,7 +93,7 @@ namespace DeAnWEB.Controllers
                 {
                     CustomerID = customer.CustomerID,
                     OrderDate = model.OrderDate,
-                    TotalAmount = model.TotalAmount,
+                    TotalAmount = cart.Items.Sum(i => i.TotalPrice),
                     PaymentStatus = paymentStatus,
                     PaymentMethod = model.PaymentMethod,
                     ShippingMethod = model.ShippingMethod,

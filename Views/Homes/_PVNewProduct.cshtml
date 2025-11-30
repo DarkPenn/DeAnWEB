@@ -7,7 +7,11 @@
 }
 
 @{
-    var categories = new[] { "Giày Nikke", "Giày Adidas", "Giày Sneaker" };
+    var categories = Model.NewProducts
+            .Where(p => p.Category != null)
+            .Select(p => p.Category.CategoryName)
+            .Distinct()
+            .ToList();
 }
 
 @foreach (var cat in categories)

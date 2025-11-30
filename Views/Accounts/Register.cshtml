@@ -89,7 +89,7 @@
         @*SĐT Khách hàng*@
         <div class="mb-3">
             @Html.LabelFor(model => model.CustomerPhone, new { @class = "form-label col-md-4" })
-            <div class="col-md-10">
+            <div class="col-md-14">
                 @Html.EditorFor(model => model.CustomerPhone, new
            {
                htmlAttributes = new
@@ -110,7 +110,7 @@
         @*Email khách hàng*@
         <div class="mb-3">
             @Html.LabelFor(model => model.CustomerEmail, new { @class = "form-label col-md-4" })
-            <div class="col-md-10">
+            <div class="col-md-14">
                 @Html.EditorFor(model => model.CustomerEmail, new
            {
                htmlAttributes = new
@@ -130,7 +130,7 @@
         <div class="mb-3">
             @Html.LabelFor(model => model.CustomerAddress, new { @class = "form-label col-md-2" })
             <div class="col-md-11">
-                @Html.EditorFor(model => model.CustomerAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.CustomerAddress, new { htmlAttributes = new { @class = "form-control", maxlength="100" } })
                 <br />
                 @Html.ValidationMessageFor(model => model.CustomerAddress, "", new { @class = "text-danger" })
             </div>

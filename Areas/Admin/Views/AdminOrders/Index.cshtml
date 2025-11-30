@@ -7,9 +7,6 @@
 
 <h2 class="bg-success">Danh sách đơn hàng</h2>
 
-<p style="border-radius:8px;">
-    @Html.ActionLink("Thêm mới", "Create", null, new { @class = "btn btn-primary" })
-</p>
 <table class="table bg-info container-fluid">
     <thead>
         <tr>
@@ -63,7 +60,6 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.OrderID }, new { @class = "btn btn-primary btn-sm" }) 
             @Html.ActionLink("Details", "Details", new { id=item.OrderID }, new { @class = "btn btn-primary btn-sm" }) 
-            @Html.ActionLink("Delete", "Delete", new { id=item.OrderID }, new { @class = "btn btn-primary btn-sm" })
         </td>
     </tr>
 }
